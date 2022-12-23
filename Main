@@ -4,9 +4,9 @@
 local espLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/dohmai/ESP-Libary/main/Main'),true))()
 espLib:Load()
 ----- // Libary // -----
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/dohmai/Libary/main/Main"))({cheatname = "Niggaware", gamename = "Universal"})
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/dohmai/Libary/main/Main"))({cheatname = "Impulsive", gamename = "Universal"})
 library:init()
-local menu = library.NewWindow({title = "Niggaware", size = UDim2.new(0, 504, 0.5, 65)})
+local menu = library.NewWindow({title = "Impulsive | Universal", size = UDim2.new(0, 504, 0.58, 65)})
 ----- // Tabs // -----
 local AimingTab = menu:AddTab(" Aiming ")
 local VisualsTab = menu:AddTab(" Visuals ")
@@ -18,7 +18,7 @@ local Aimbot = AimingTab:AddSection("Aimbot", 1)
 local SilentAim = AimingTab:AddSection("Silent Aim", 2)
 
 local ESP = VisualsTab:AddSection("Player ESP", 1)
-
+local MapESP = VisualsTab:AddSection("Map ESP", 2)
 
 local FOV = PlayerTab:AddSection("FOV", 1)
 local ThirdPerson = PlayerTab:AddSection("Third Person", 1)
@@ -94,7 +94,7 @@ Aimbot:AddToggle({text = "Show Target", flag = "A10",
            else
                print("Untoggle")
            end
-       end}):AddColor({text = "Show FOV", flag = "A11", callback = function(bool) end})   
+       end}):AddColor({text = "Show FOV", flag = "A11", order = 2, callback = function(bool) end})
        
 Aimbot:AddToggle({text = "Show FOV", flag = "A12",
        callback = function(bool)
@@ -291,6 +291,148 @@ ESP:AddButton({text = "Unload ESP", flag = "E1",
        callback = function()
         espLib:Unload()
        end})
+-----
+local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/dohmai/esptest/main/ESP.lua"))()
+ESP:Toggle(true)
+ESP.Players = false 
+ESP.Tracers = false 
+ESP.Boxes = false 
+ESP.Names = true
+-- Med safes
+for i,v in pairs(game:GetService("Workspace").Map.BredMakurz:GetDescendants()) do
+	if string.find(v.Name,"MediumSafe") then 
+	    if v:FindFirstChild("MainPart") then 
+            ESP:Add(v.MainPart, {
+                Name = "Medium Safe",
+                IsEnabled = "mediumSafe",
+                Color = Color3.fromRGB(255, 255, 255)
+            })
+        end 
+	end 
+end
+
+-- Small safes
+for i,v in pairs(game:GetService("Workspace").Map.BredMakurz:GetDescendants()) do
+	if string.find(v.Name,"SmallSafe") then 
+	    if v:FindFirstChild("MainPart") then 
+            ESP:Add(v.MainPart, {
+                Name = "Small Safe",
+                IsEnabled = "smallSafe",
+                Color = Color3.fromRGB(255, 255, 255)
+            })
+        end 
+	end 
+end
+
+-- Registers
+for i,v in pairs(game:GetService("Workspace").Map.BredMakurz:GetDescendants()) do
+    if string.find(v.Name,"Register") then 
+        if v:FindFirstChild("MainPart") then 
+            ESP:Add(v.MainPart, {
+                Name = "Register",
+                IsEnabled = "registerSafe",
+                Color = Color3.fromRGB(255, 255, 255)
+            })
+        end 
+    end 
+end
+
+-- ATMs 
+for i,v in pairs(game:GetService("Workspace").Map.ATMz:GetDescendants()) do
+    if string.find(v.Name,"ATM") then 
+        if v:FindFirstChild("MainPart") then 
+            ESP:Add(v.MainPart, {
+                Name = "ATM",
+                IsEnabled = "atmPart",
+                Color = Color3.fromRGB(255, 255, 255)
+            })
+        end 
+    end 
+end
+
+-- Dealers
+for i,v in pairs(game:GetService("Workspace").Map.Shopz:GetDescendants()) do
+    if string.find(v.Name,"Dealer") then 
+        if v:FindFirstChild("MainPart") then 
+            ESP:Add(v.MainPart, {
+                Name = "Dealer",
+                IsEnabled = "dealerStore",
+                Color = Color3.fromRGB(255, 255, 255)
+            })
+        end 
+    end 
+end
+
+-- Scraps
+ESP:AddObjectListener(game:GetService("Workspace").Filter.SpawnedPiles, {
+    Type = "Model",
+    CustomName = "Scrap / Crate",
+    Color = Color3.fromRGB(216, 255, 164),
+    IsEnabled = "scrapPart"
+})
+--- // Map ESP // ---
+MapESP:AddToggle({text = "Enable", flag = "E1",
+       callback = function(bool)
+           if bool then
+               ESP.Names = true
+           else
+               ESP.Names = false
+           end
+       end}):AddBind({text = "ESP Enabled", state = false, mode = 'toggle', bind = 'None', flag = "E2", callback = function(value) ESP.Names = value end})  
+
+MapESP:AddToggle({text = "Medium Safe", flag = "E1",
+       callback = function(bool)
+           if bool then
+               ESP.mediumSafe = true
+           else
+               ESP.mediumSafe = false
+           end
+       end})
+       
+MapESP:AddToggle({text = "Small Safe", flag = "E1",
+       callback = function(bool)
+           if bool then
+               ESP.smallSafe = true
+           else
+               ESP.smallSafe = false
+           end
+       end})  
+       
+MapESP:AddToggle({text = "Register", flag = "E1",
+       callback = function(bool)
+           if bool then
+               ESP.registerSafe = true
+           else
+               ESP.registerSafe = false
+           end
+       end})
+       
+MapESP:AddToggle({text = "ATM", flag = "E1",
+       callback = function(bool)
+           if bool then
+               ESP.atmPart = true
+           else
+               ESP.atmPart = false
+           end
+       end})
+       
+MapESP:AddToggle({text = "Dealer", flag = "E1",
+       callback = function(bool)
+           if bool then
+               ESP.dealerStore = true
+           else
+               ESP.dealerStore = false
+           end
+       end})  
+       
+MapESP:AddToggle({text = "Scrap / Crates", flag = "E1",
+       callback = function(bool)
+           if bool then
+               ESP.scrapPart = true
+           else
+               ESP.scrapPart = false
+           end
+       end})  
 --- // Movement // ---
 Walkspeed:AddToggle({text = "Enable", risky = true, flag = "",
      callback = function(bool)
@@ -326,6 +468,16 @@ FakeLag:AddToggle({text = "Enable", risky = true, flag = "a",
        end}):AddBind({text = "Fake Lag", state = false, mode = 'toggle', bind = 'None', flag = "a", callback = function(bool) end})  
 
 FakeLag:AddSlider({text = "Intensity", risky = true, flag = '"', suffix = "", min = 0, max = 10, increment = 1})
+
+FOV:AddToggle({text = "Enable", risky = false, flag = "a",
+       callback = function(bool)
+           if bool then
+               print("Toggle")
+           else
+               print("Untoggle")
+           end
+       end}):AddBind({text = "Fake Lag", state = false, mode = 'toggle', bind = 'None', flag = "a", callback = function(bool) end})  
+
 
 FOV:AddSlider({text = "Value", risky = false, flag = '"', suffix = "", min = 70, max = 120, increment = 1, value = 070, callback = function(value)
 end})
@@ -377,4 +529,4 @@ Main:AddToggle({text = "Staff Viewer", risky = false, flag = "a",
 ----- // Notification // -----
 wait(0.15)
 library:SendNotification(library.cheatname..' | Loaded ', 3)
-
+-----
