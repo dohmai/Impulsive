@@ -1,5 +1,4 @@
 --- // Start Settings // ---
-
 ----- // ESP Libary // -----
 local espLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/dohmai/ESP-Libary/main/Main'),true))()
 espLib:Load()
@@ -32,78 +31,58 @@ local Main = MiscellaneousTab:AddSection("Main", 1)
 Aimbot:AddToggle({text = "Enable", flag = "A1",
        callback = function(bool)
            if bool then
-               print("Toggle")
+               getgenv().Aimbot.Settings.Enabled = true
            else
-               print("Untoggle")
+               getgenv().Aimbot.Settings.Enabled = false
            end
        end}):AddBind({text = "Aimbot", state = false, mode = 'hold', bind = 'None', flag = "A2", callback = function(bool) end})  
-
-
-Aimbot:AddToggle({text = "Air Part", flag = "A3",
-       callback = function(bool)
-           if bool then
-               print("Toggle")
-           else
-               print("Untoggle")
-           end
-       end})
 
 Aimbot:AddToggle({text = "Team Check", flag = "A4",
        callback = function(bool)
            if bool then
-               print("Toggle")
+               getgenv().Aimbot.Settings.TeamCheck = true
            else
-               print("Untoggle")
+               getgenv().Aimbot.Settings.TeamCheck = false
            end
        end})   
        
 Aimbot:AddToggle({text = "Wall Check", flag = "A5",
        callback = function(bool)
            if bool then
-               print("Toggle")
+               getgenv().Aimbot.Settings.WallCheck = true
            else
-               print("Untoggle")
+               getgenv().Aimbot.Settings.WallCheck = false
            end
        end}) 
 
 Aimbot:AddToggle({text = "Health Check", flag = "A6",
        callback = function(bool)
            if bool then
-               print("Toggle")
+               getgenv().Aimbot.Settings.AliveCheck = true
            else
-               print("Untoggle")
+               getgenv().Aimbot.Settings.AliveCheck = false
            end
        end})  
        
 Aimbot:AddList({text = "Hitpart", flag = "A7", selected = 'None', values = {'Head', 'Torso'},
        callback = function()
        end}) 
-
-Aimbot:AddList({text = "Prioritize", flag = "A8", selected = 'None', values = {'Cursor', 'Distance', 'Lowest Health'},
-       callback = function()
-       end})      
        
-Aimbot:AddSlider({text = "Smoothness", flag = "A9", suffix = "", min = 0, max = 100, increment = .1})
+Aimbot:AddSlider({text = "Smoothness", flag = "A9", suffix = "", min = 0, max = 100, increment = .1
+})
 
 Aimbot:AddSeparator({text = "Visuals"})
 
-Aimbot:AddToggle({text = "Show Target", flag = "A10",
+local FOV_color = Aimbot:AddToggle({text = "Show FOV", flag = "A12",
        callback = function(bool)
            if bool then
-               print("Toggle")
+               
            else
-               print("Untoggle")
+               
            end
-       end}):AddColor({text = "Show FOV", flag = "A11", order = 2, callback = function(bool) end})
-       
-Aimbot:AddToggle({text = "Show FOV", flag = "A12",
-       callback = function(bool)
-           if bool then
-               print("Toggle")
-           else
-               print("Untoggle")
-           end
-       end}):AddColor({text = "Show FOV", flag = "A13", callback = function(bool) end})   
+       end})
+FOV_color:AddColor({text = "Show FOV", flag = "A13", callback = function(bool) end})   
+FOV_color:AddColor({text = "Show FOV", flag = "A13", callback = function(bool) end})   
        
 Aimbot:AddSlider({text = "FOV Radius", flag = "A14", suffix = "", min = 0, max = 100, increment = .1})
 
@@ -291,148 +270,17 @@ ESP:AddButton({text = "Unload ESP", flag = "E1",
        callback = function()
         espLib:Unload()
        end})
------
-local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/dohmai/esptest/main/ESP.lua"))()
-ESP:Toggle(true)
-ESP.Players = false 
-ESP.Tracers = false 
-ESP.Boxes = false 
-ESP.Names = true
--- Med safes
-for i,v in pairs(game:GetService("Workspace").Map.BredMakurz:GetDescendants()) do
-	if string.find(v.Name,"MediumSafe") then 
-	    if v:FindFirstChild("MainPart") then 
-            ESP:Add(v.MainPart, {
-                Name = "Medium Safe",
-                IsEnabled = "mediumSafe",
-                Color = Color3.fromRGB(255, 255, 255)
-            })
-        end 
-	end 
-end
 
--- Small safes
-for i,v in pairs(game:GetService("Workspace").Map.BredMakurz:GetDescendants()) do
-	if string.find(v.Name,"SmallSafe") then 
-	    if v:FindFirstChild("MainPart") then 
-            ESP:Add(v.MainPart, {
-                Name = "Small Safe",
-                IsEnabled = "smallSafe",
-                Color = Color3.fromRGB(255, 255, 255)
-            })
-        end 
-	end 
-end
-
--- Registers
-for i,v in pairs(game:GetService("Workspace").Map.BredMakurz:GetDescendants()) do
-    if string.find(v.Name,"Register") then 
-        if v:FindFirstChild("MainPart") then 
-            ESP:Add(v.MainPart, {
-                Name = "Register",
-                IsEnabled = "registerSafe",
-                Color = Color3.fromRGB(255, 255, 255)
-            })
-        end 
-    end 
-end
-
--- ATMs 
-for i,v in pairs(game:GetService("Workspace").Map.ATMz:GetDescendants()) do
-    if string.find(v.Name,"ATM") then 
-        if v:FindFirstChild("MainPart") then 
-            ESP:Add(v.MainPart, {
-                Name = "ATM",
-                IsEnabled = "atmPart",
-                Color = Color3.fromRGB(255, 255, 255)
-            })
-        end 
-    end 
-end
-
--- Dealers
-for i,v in pairs(game:GetService("Workspace").Map.Shopz:GetDescendants()) do
-    if string.find(v.Name,"Dealer") then 
-        if v:FindFirstChild("MainPart") then 
-            ESP:Add(v.MainPart, {
-                Name = "Dealer",
-                IsEnabled = "dealerStore",
-                Color = Color3.fromRGB(255, 255, 255)
-            })
-        end 
-    end 
-end
-
--- Scraps
-ESP:AddObjectListener(game:GetService("Workspace").Filter.SpawnedPiles, {
-    Type = "Model",
-    CustomName = "Scrap / Crate",
-    Color = Color3.fromRGB(216, 255, 164),
-    IsEnabled = "scrapPart"
-})
---- // Map ESP // ---
-MapESP:AddToggle({text = "Enable", flag = "E1",
+local Chams = ESP:AddToggle({text = "Chams", flag = "E1",
        callback = function(bool)
            if bool then
-               ESP.Names = true
+               espLib.options.chams = true
            else
-               ESP.Names = false
-           end
-       end}):AddBind({text = "ESP Enabled", state = false, mode = 'toggle', bind = 'None', flag = "E2", callback = function(value) ESP.Names = value end})  
-
-MapESP:AddToggle({text = "Medium Safe", flag = "E1",
-       callback = function(bool)
-           if bool then
-               ESP.mediumSafe = true
-           else
-               ESP.mediumSafe = false
+               espLib.options.chams = false
            end
        end})
-       
-MapESP:AddToggle({text = "Small Safe", flag = "E1",
-       callback = function(bool)
-           if bool then
-               ESP.smallSafe = true
-           else
-               ESP.smallSafe = false
-           end
-       end})  
-       
-MapESP:AddToggle({text = "Register", flag = "E1",
-       callback = function(bool)
-           if bool then
-               ESP.registerSafe = true
-           else
-               ESP.registerSafe = false
-           end
-       end})
-       
-MapESP:AddToggle({text = "ATM", flag = "E1",
-       callback = function(bool)
-           if bool then
-               ESP.atmPart = true
-           else
-               ESP.atmPart = false
-           end
-       end})
-       
-MapESP:AddToggle({text = "Dealer", flag = "E1",
-       callback = function(bool)
-           if bool then
-               ESP.dealerStore = true
-           else
-               ESP.dealerStore = false
-           end
-       end})  
-       
-MapESP:AddToggle({text = "Scrap / Crates", flag = "E1",
-       callback = function(bool)
-           if bool then
-               ESP.scrapPart = true
-           else
-               ESP.scrapPart = false
-           end
-       end})  
+Chams:AddColor({text = "Fill Color", flag = "A13", callback = function(value) espLib.options.chamsFillColor = value end})        
+Chams:AddColor({text = "Outline Color", flag = "A13", callback = function(value) espLib.options.chamsOutlineColor = value end}) 
 --- // Movement // ---
 Walkspeed:AddToggle({text = "Enable", risky = true, flag = "",
      callback = function(bool)
