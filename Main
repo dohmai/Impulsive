@@ -2,15 +2,11 @@
 
 ----- // ESP Libary // -----
 local Sense = loadstring(game:HttpGet('https://raw.githubusercontent.com/dohmai/ESP-Libary/main/Main'))()
-Sense.teamSettings.enemy.tracerColor = { Color3.new(255,255,255), 1 }
-Sense.teamSettings.enemy.boxColor = { Color3.new(255,255,255), 1 }
-Sense.teamSettings.friendly.tracerColor = { Color3.new(255,255,255), 1 }
-Sense.teamSettings.friendly.boxColor = { Color3.new(255,255,255), 1 }
 Sense.Load()
 ----- // Libary // -----
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/dohmai/Libary/main/Main"))({cheatname = "Impulsive", gamename = "Universal"})
 library:init()
-local menu = library.NewWindow({title = "Impulsive | Universal", size = UDim2.new(0, 504, 0.58, 65)})
+local menu = library.NewWindow({title = "Impulsive | Universal", size = UDim2.new(0, 504, 0.55, 65)})
 ----- // Tabs // -----
 local AimingTab = menu:AddTab(" Aiming ")
 local VisualsTab = menu:AddTab(" Visuals ")
@@ -23,7 +19,7 @@ local SilentAim = AimingTab:AddSection("Silent Aim", 2)
 
 local ESP = VisualsTab:AddSection("ESP", 1)
 
-local FOV = PlayerTab:AddSection("FOV", 1)
+local Misc = PlayerTab:AddSection("Misc", 1)
 local ThirdPerson = PlayerTab:AddSection("Third Person", 1)
 local Walkspeed = PlayerTab:AddSection("Walkspeed", 2)
 local Fly = PlayerTab:AddSection("Fly", 2)
@@ -40,8 +36,6 @@ ESP:AddToggle({text = "Enable", flag = "A1",
                Sense.teamSettings.enemy.enabled = false Sense.teamSettings.friendly.enabled = false
            end
        end}):AddBind({text = "Toggle", state = false, mode = 'toggle', bind = 'None', flag = "A2", callback = function(bool) Sense.teamSettings.enemy.enabled = bool Sense.teamSettings.friendly.enabled = bool end})  
-
-
 
 ESP:AddToggle({text = "Team Check", flag = "A1",
        callback = function(bool)
@@ -60,7 +54,7 @@ local BoxColors = ESP:AddToggle({text = "Boxes", flag = "A1",
                Sense.teamSettings.enemy.box = false Sense.teamSettings.friendly.box = false
            end
        end})
-BoxColors:AddColor({text = "Outline Color", flag = "A13",color = Color3.new(0,0,0), callback = function(value) Sense.teamSettings.enemy.boxOutlineColor[1] = value Sense.teamSettings.friendly.boxOutlineColor[1] = value end})   
+BoxColors:AddColor({text = "Outline Color", flag = "A13",color = Color3.new(255,255,255), callback = function(value) Sense.teamSettings.enemy.boxOutlineColor[1] = value Sense.teamSettings.friendly.boxOutlineColor[1] = value end})   
 BoxColors:AddColor({text = "Inline Color", color = Color3.new(255,255,255), flag = "A13", callback = function(value) Sense.teamSettings.enemy.boxColor[1] = value Sense.teamSettings.friendly.boxColor[1] = value end})   
 
 local HealthColors = ESP:AddToggle({text = "Health Bar", flag = "A1",
@@ -71,9 +65,9 @@ local HealthColors = ESP:AddToggle({text = "Health Bar", flag = "A1",
                Sense.teamSettings.enemy.healthBar = false Sense.teamSettings.friendly.healthBar = false
            end
        end})
-HealthColors:AddColor({text = "Outline Color", color = Color3.new(0,0,0), flag = "A13", callback = function(value) Sense.teamSettings.enemy.healthBarOutlineColor[1] = value  Sense.teamSettings.friendly.healthBarOutlineColor[1] = value end})   
-HealthColors:AddColor({text = "Low HP Color", color = Color3.new(1,0,0), flag = "A13", callback = function(value) Sense.teamSettings.enemy.dyingColor = value Sense.teamSettings.friendly.dyingColor = value end})   
-HealthColors:AddColor({text = "High HP Color", color = Color3.new(0,1,0), flag = "A13", callback = function(value) Sense.teamSettings.enemy.healthyColor = value Sense.teamSettings.friendly.healthyColor = value end})   
+HealthColors:AddColor({text = "Outline Color", color = Color3.new(255,255,255), flag = "A13", callback = function(value) Sense.teamSettings.enemy.healthBarOutlineColor[1] = value  Sense.teamSettings.friendly.healthBarOutlineColor[1] = value end})   
+HealthColors:AddColor({text = "Low HP Color", color = Color3.new(255,255,255), flag = "A13", callback = function(value) Sense.teamSettings.enemy.dyingColor = value Sense.teamSettings.friendly.dyingColor = value end})   
+HealthColors:AddColor({text = "High HP Color", color = Color3.new(255,255,255), flag = "A13", callback = function(value) Sense.teamSettings.enemy.healthyColor = value Sense.teamSettings.friendly.healthyColor = value end})   
 
 local HealthTextColors = ESP:AddToggle({text = "Health Text", flag = "A1",
        callback = function(bool)
@@ -83,7 +77,7 @@ local HealthTextColors = ESP:AddToggle({text = "Health Text", flag = "A1",
                Sense.teamSettings.enemy.healthText = false Sense.teamSettings.friendly.healthText = false
            end
        end})
-HealthTextColors:AddColor({text = "Outline Color", flag = "A13", color = Color3.new(0,0,0), callback = function(value) Sense.teamSettings.enemy.healthTextOutlineColor = value Sense.teamSettings.friendly.healthTextOutlineColor = value end})   
+HealthTextColors:AddColor({text = "Outline Color", flag = "A13", color = Color3.new(255,255,255), callback = function(value) Sense.teamSettings.enemy.healthTextOutlineColor = value Sense.teamSettings.friendly.healthTextOutlineColor = value end})   
 HealthTextColors:AddColor({text = "Main Color", flag = "A13", color = Color3.new(255,255,255), callback = function(value) Sense.teamSettings.enemy.healthTextColor[1] = value Sense.teamSettings.friendly.healthTextColor[1] = value end})   
 
 local NameColor = ESP:AddToggle({text = "Names", flag = "A1",
@@ -94,8 +88,8 @@ local NameColor = ESP:AddToggle({text = "Names", flag = "A1",
                Sense.teamSettings.enemy.name = false Sense.teamSettings.friendly.name = false
            end
        end})
-NameColor:AddColor({text = "Outline Color", flag = "A13", color = Color3.new(0,0,0), callback = function(value) Sense.teamSettings.enemy.nameOutlineColor = value Sense.teamSettings.friendly.nameOutlineColor = value end})   
-NameColor:AddColor({text = "Main Color", flag = "A13", callback = function(value) Sense.teamSettings.enemy.nameColor[1] = value Sense.teamSettings.friendly.nameColor[1] = value end})   
+NameColor:AddColor({text = "Outline Color", flag = "A13", color = Color3.new(255,255,255), callback = function(value) Sense.teamSettings.enemy.nameOutlineColor = value Sense.teamSettings.friendly.nameOutlineColor = value end})   
+NameColor:AddColor({text = "Main Color", flag = "A13", color = Color3.new(255,255,255), callback = function(value) Sense.teamSettings.enemy.nameColor[1] = value Sense.teamSettings.friendly.nameColor[1] = value end})   
 
 local WeaponColor = ESP:AddToggle({text = "Weapon", flag = "A1",
        callback = function(bool)
@@ -105,8 +99,8 @@ local WeaponColor = ESP:AddToggle({text = "Weapon", flag = "A1",
                Sense.teamSettings.enemy.weapon = false Sense.teamSettings.friendly.weapon = false
            end
        end})
-WeaponColor:AddColor({text = "Outline Color", flag = "A13", color = Color3.new(0,0,0), callback = function(value) Sense.teamSettings.enemy.weaponOutlineColor = value Sense.teamSettings.friendly.weaponOutlineColor = value end})   
-WeaponColor:AddColor({text = "Main Color", flag = "A13", callback = function(value) Sense.teamSettings.enemy.weaponColor[1] = value Sense.teamSettings.friendly.weaponColor[1] = value end})   
+WeaponColor:AddColor({text = "Outline Color", flag = "A13", color = Color3.new(255,255,255), callback = function(value) Sense.teamSettings.enemy.weaponOutlineColor = value Sense.teamSettings.friendly.weaponOutlineColor = value end})   
+WeaponColor:AddColor({text = "Main Color", flag = "A13", color = Color3.new(255,255,255), callback = function(value) Sense.teamSettings.enemy.weaponColor[1] = value Sense.teamSettings.friendly.weaponColor[1] = value end})   
 
 
 local DistanceColor = ESP:AddToggle({text = "Distance", flag = "A1",
@@ -117,8 +111,8 @@ local DistanceColor = ESP:AddToggle({text = "Distance", flag = "A1",
                Sense.teamSettings.enemy.distance = false Sense.teamSettings.friendly.distance = false
            end
        end})
-DistanceColor:AddColor({text = "Outline Color", flag = "A13", color = Color3.new(0,0,0), callback = function(value) Sense.teamSettings.enemy.distanceOutlineColor = value Sense.teamSettings.friendly.distanceOutlineColor = value end})   
-DistanceColor:AddColor({text = "Main Color", flag = "A13", callback = function(value) Sense.teamSettings.enemy.distanceColor[1] = value Sense.teamSettings.friendly.distanceColor[1] = value end})   
+DistanceColor:AddColor({text = "Outline Color", flag = "A13", color = Color3.new(255,255,255), callback = function(value) Sense.teamSettings.enemy.distanceOutlineColor = value Sense.teamSettings.friendly.distanceOutlineColor = value end})   
+DistanceColor:AddColor({text = "Main Color", flag = "A13", color = Color3.new(255,255,255), callback = function(value) Sense.teamSettings.enemy.distanceColor[1] = value Sense.teamSettings.friendly.distanceColor[1] = value end})   
 
 ESP:AddToggle({text = "Limit Distance", flag = "A1",
        callback = function(bool)
@@ -139,7 +133,7 @@ local TracerColor = ESP:AddToggle({text = "Tracer", flag = "A1",
                Sense.teamSettings.enemy.tracer = false Sense.teamSettings.friendly.tracer = false
            end
        end})
-TracerColor:AddColor({text = "Outline Color", flag = "A13", color = Color3.new(0,0,0), callback = function(value) Sense.teamSettings.enemy.tracerOutlineColor[1] = value Sense.teamSettings.friendly.tracerOutlineColor[1] = value end})   
+TracerColor:AddColor({text = "Outline Color", flag = "A13", color = Color3.new(255,255,255), callback = function(value) Sense.teamSettings.enemy.tracerOutlineColor[1] = value Sense.teamSettings.friendly.tracerOutlineColor[1] = value end})   
 TracerColor:AddColor({text = "Name Color", flag = "A13", callback = function(value) Sense.teamSettings.enemy.tracerColor[1] = value Sense.teamSettings.friendly.tracerColor[1] = value end})   
 
 ESP:AddList({text = "Tracer Type", flag = "S7", selected = 'Bottom', values = {'Bottom', 'Top', 'Middle'},
@@ -154,9 +148,25 @@ local ArrowColor = ESP:AddToggle({text = "Off Screen Arrow", flag = "A1",
                Sense.teamSettings.enemy.offScreenArrow = false Sense.teamSettings.friendly.offScreenArrow = false
            end
        end})
-ArrowColor:AddColor({text = "Outline Color", flag = "A13", color = Color3.new(0,0,0), callback = function(value) Sense.teamSettings.friendly.offScreenArrowOutlineColor[1] = value Sense.teamSettings.enemy.offScreenArrowOutlineColor[1] = value end})   
+ArrowColor:AddColor({text = "Outline Color", flag = "A13", color = Color3.new(255,255,255), callback = function(value) Sense.teamSettings.friendly.offScreenArrowOutlineColor[1] = value Sense.teamSettings.enemy.offScreenArrowOutlineColor[1] = value end})   
 ArrowColor:AddColor({text = "Main Color", flag = "A13", color = Color3.new(255,255,255), callback = function(value) Sense.teamSettings.friendly.offScreenArrowColor[1] = value Sense.teamSettings.enemy.offScreenArrowColor[1] = value end})   
- 
+-------------------
+
+Walkspeed:AddToggle({text = "Enable", flag = "A1",
+       callback = function(bool)
+           if bool then
+               Sense.teamSettings.enemy.enabled = true Sense.teamSettings.friendly.enabled = true
+           else
+               Sense.teamSettings.enemy.enabled = false Sense.teamSettings.friendly.enabled = false
+           end
+       end}):AddBind({text = "Toggle", state = false, mode = 'toggle', bind = 'None', flag = "A2", callback = function(bool) Sense.teamSettings.enemy.enabled = bool Sense.teamSettings.friendly.enabled = bool end})  
+
+
+
+Misc:AddBind({text = "Quick Reset", state = false, mode = 'hold', bind = 'None', flag = "A2", callback = function(bool) game.Players.LocalPlayer.Character.Humanoid.Health = 0 end})  
+
+
+-----------------
 wait(0.15)
 library:SendNotification(library.cheatname..' | Loaded ', 3)
 -----
