@@ -1,7 +1,12 @@
 --- // Start Settings // ---
+
 ----- // ESP Libary // -----
-local espLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/dohmai/ESP-Libary/main/Main'),true))()
-espLib:Load()
+local Sense = loadstring(game:HttpGet('https://raw.githubusercontent.com/dohmai/ESP-Libary/main/Main'))()
+Sense.teamSettings.enemy.tracerColor = { Color3.new(255,255,255), 1 }
+Sense.teamSettings.enemy.boxColor = { Color3.new(255,255,255), 1 }
+Sense.teamSettings.friendly.tracerColor = { Color3.new(255,255,255), 1 }
+Sense.teamSettings.friendly.boxColor = { Color3.new(255,255,255), 1 }
+Sense.Load()
 ----- // Libary // -----
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/dohmai/Libary/main/Main"))({cheatname = "Impulsive", gamename = "Universal"})
 library:init()
@@ -16,8 +21,7 @@ local SettingsTab = library:CreateSettingsTab(menu)
 local Aimbot = AimingTab:AddSection("Aimbot", 1)
 local SilentAim = AimingTab:AddSection("Silent Aim", 2)
 
-local ESP = VisualsTab:AddSection("Player ESP", 1)
-local MapESP = VisualsTab:AddSection("Map ESP", 2)
+local ESP = VisualsTab:AddSection("ESP", 1)
 
 local FOV = PlayerTab:AddSection("FOV", 1)
 local ThirdPerson = PlayerTab:AddSection("Third Person", 1)
@@ -28,353 +32,150 @@ local FakeLag = PlayerTab:AddSection("Fake Lag", 2)
 local Main = MiscellaneousTab:AddSection("Main", 1)
 
 --- // Aimbot // ---
-Aimbot:AddToggle({text = "Enable", flag = "A1",
+ESP:AddToggle({text = "Enable", flag = "A1",
        callback = function(bool)
            if bool then
-               getgenv().Aimbot.Settings.Enabled = true
+               Sense.teamSettings.enemy.enabled = true Sense.teamSettings.friendly.enabled = true
            else
-               getgenv().Aimbot.Settings.Enabled = false
+               Sense.teamSettings.enemy.enabled = false Sense.teamSettings.friendly.enabled = false
            end
-       end}):AddBind({text = "Aimbot", state = false, mode = 'hold', bind = 'None', flag = "A2", callback = function(bool) end})  
+       end}):AddBind({text = "Toggle", state = false, mode = 'toggle', bind = 'None', flag = "A2", callback = function(bool) Sense.teamSettings.enemy.enabled = bool Sense.teamSettings.friendly.enabled = bool end})  
 
-Aimbot:AddToggle({text = "Team Check", flag = "A4",
+
+
+ESP:AddToggle({text = "Team Check", flag = "A1",
        callback = function(bool)
            if bool then
-               getgenv().Aimbot.Settings.TeamCheck = true
+               Sense.teamSettings.friendly.enabled = false
            else
-               getgenv().Aimbot.Settings.TeamCheck = false
-           end
-       end})   
-       
-Aimbot:AddToggle({text = "Wall Check", flag = "A5",
-       callback = function(bool)
-           if bool then
-               getgenv().Aimbot.Settings.WallCheck = true
-           else
-               getgenv().Aimbot.Settings.WallCheck = false
-           end
-       end}) 
-
-Aimbot:AddToggle({text = "Health Check", flag = "A6",
-       callback = function(bool)
-           if bool then
-               getgenv().Aimbot.Settings.AliveCheck = true
-           else
-               getgenv().Aimbot.Settings.AliveCheck = false
-           end
-       end})  
-       
-Aimbot:AddList({text = "Hitpart", flag = "A7", selected = 'None', values = {'Head', 'Torso'},
-       callback = function()
-       end}) 
-       
-Aimbot:AddSlider({text = "Smoothness", flag = "A9", suffix = "", min = 0, max = 100, increment = .1
-})
-
-Aimbot:AddSeparator({text = "Visuals"})
-
-local FOV_color = Aimbot:AddToggle({text = "Show FOV", flag = "A12",
-       callback = function(bool)
-           if bool then
-               
-           else
-               
-           end
-       end})
-FOV_color:AddColor({text = "Show FOV", flag = "A13", callback = function(bool) end})   
-FOV_color:AddColor({text = "Show FOV", flag = "A13", callback = function(bool) end})   
-       
-Aimbot:AddSlider({text = "FOV Radius", flag = "A14", suffix = "", min = 0, max = 100, increment = .1})
-
-Aimbot:AddSeparator({text = "Cursor Offset"})
-
-Aimbot:AddSlider({text = "X Offset", flag = "A15", suffix = "", min = -250, max = 250, increment = .1})
-
-Aimbot:AddSlider({text = "Y Offset", flag = "A16", suffix = "", min = -250, max = 250, increment = .1})
-
-Aimbot:AddSeparator({text = "Triggerbot"})
-
-Aimbot:AddToggle({text = "Enable", flag = "A17",
-       callback = function(bool)
-           if bool then
-               print("Aimbot Enabled")
-           else
-               print("Aimbot Disabled")
-           end
-       end}):AddBind({text = "Triggerbot", state = false, mode = 'toggle', bind = 'None', flag = "A18", callback = function(bool) end})  
-
-Aimbot:AddSlider({text = "Reaction Time", flag = "A19", suffix = "ms", min = 0, max = 500, increment = 1})
---- // Silent Aim // ---
-SilentAim:AddToggle({text = "Enable", flag = "S1",
-       callback = function(bool)
-           if bool then
-               print("Toggle")
-           else
-               print("Untoggle")
-           end
-       end}):AddBind({text = "Silent Aim", state = false, mode = 'toggle', bind = 'None', flag = "S2", callback = function(bool) end})  
-
-SilentAim:AddToggle({text = "Sticky Aim", flag = "S3",
-       callback = function(bool)
-           if bool then
-               print("Toggle")
-           else
-               print("Untoggle")
-           end
-       end})
-
-SilentAim:AddToggle({text = "Team Check", flag = "S4",
-       callback = function(bool)
-           if bool then
-               print("Toggle")
-           else
-               print("Untoggle")
-           end
-       end})   
-       
-SilentAim:AddToggle({text = "Wall Check", flag = "S5",
-       callback = function(bool)
-           if bool then
-               print("Toggle")
-           else
-               print("Untoggle")
-           end
-       end}) 
-
-SilentAim:AddToggle({text = "Health Check", flag = "S6",
-       callback = function(bool)
-           if bool then
-               print("Toggle")
-           else
-               print("Untoggle")
-           end
-       end})  
-       
-SilentAim:AddList({text = "Hitpart", flag = "S7", selected = 'None', values = {'Head', 'Torso'},
-       callback = function()
-       end}) 
-       
-SilentAim:AddSlider({text = "Hit Chance", flag = "S8", suffix = "%", min = 0, max = 100, increment = 1})
-
-SilentAim:AddSeparator({text = "Visuals"})
-
-SilentAim:AddToggle({text = "Show Target", flag = "S9",
-       callback = function(bool)
-           if bool then
-               print("Toggle")
-           else
-               print("Untoggle")
-           end
-       end}):AddColor({text = "Show FOV", flag = "S10", callback = function(bool) end})   
-       
-SilentAim:AddToggle({text = "Show FOV", flag = "S11",
-       callback = function(bool)
-           if bool then
-               print("Toggle")
-           else
-               print("Untoggle")
-           end
-       end}):AddColor({text = "Show FOV", flag = "S12", callback = function(bool) end})   
-       
-SilentAim:AddSlider({text = "FOV Radius", flag = "S13", suffix = "", min = 0, max = 100, increment = .1})
---- // ESP // ---
-ESP:AddToggle({text = "Enable", flag = "E1",
-       callback = function(bool)
-           if bool then
-               espLib.options.enabled = true
-           else
-               espLib.options.enabled = false
-           end
-       end}):AddBind({text = "ESP Enabled", state = false, mode = 'toggle', bind = 'None', flag = "E2", callback = function(value) espLib.options.enabled = value end})  
-
-ESP:AddToggle({text = "Boxes", flag = "E1",
-       callback = function(bool)
-           if bool then
-               espLib.options.boxes = true
-           else
-               espLib.options.boxes = false
-           end
-       end}):AddColor({text = "Boxes Color", flag = "E1", callback = function(value) espLib.options.boxesColor = value end})
-
-ESP:AddToggle({text = "Names", flag = "E1",
-       callback = function(bool)
-           if bool then
-               espLib.options.names = true
-           else
-               espLib.options.names = false
-           end
-       end}):AddColor({text = "Name Color", flag = "E1", callback = function(value) espLib.options.nameColor = value end})
-
-ESP:AddToggle({text = "Health Bar", flag = "E1",
-       callback = function(bool)
-           if bool then
-               espLib.options.healthBars = true
-           else
-               espLib.options.healthBars = false
-           end
-       end}):AddColor({text = "Health Bar Color",  color = Color3.new(0,1,0), flag = "E1", callback = function(value) espLib.options.healthBarsColor = value end})
-
-ESP:AddToggle({text = "Health Text", flag = "E1",
-       callback = function(bool)
-           if bool then
-               espLib.options.healthText = true
-           else
-               espLib.options.healthText = false
-           end
-       end}):AddColor({text = "Health Text Color", flag = "E1", callback = function(value) espLib.options.healthTextColor = value end})
-
-ESP:AddToggle({text = "Tracer", flag = "E1",
-       callback = function(bool)
-           if bool then
-               espLib.options.tracers = true
-           else
-               espLib.options.tracers = false
-           end
-       end}):AddColor({text = "Tracer Color", flag = "E1", callback = function(value) espLib.options.tracerColor = value end})
-
-ESP:AddToggle({text = "Wall Check", flag = "E1",
-       callback = function(bool)
-           if bool then
-               espLib.options.visibleOnly = true
-           else
-               espLib.options.visibleOnly = false
+               Sense.teamSettings.friendly.enabled = true
            end
        end})
        
-ESP:AddToggle({text = "Distance Check", flag = "E1",
+local BoxColors = ESP:AddToggle({text = "Boxes", flag = "A1",
        callback = function(bool)
            if bool then
-               espLib.options.limitDistance = true
+               Sense.teamSettings.enemy.box = true Sense.teamSettings.friendly.box = true
            else
-               espLib.options.limitDistance = false
+               Sense.teamSettings.enemy.box = false Sense.teamSettings.friendly.box = false
+           end
+       end})
+BoxColors:AddColor({text = "Outline Color", flag = "A13",color = Color3.new(0,0,0), callback = function(value) Sense.teamSettings.enemy.boxOutlineColor[1] = value Sense.teamSettings.friendly.boxOutlineColor[1] = value end})   
+BoxColors:AddColor({text = "Inline Color", color = Color3.new(255,255,255), flag = "A13", callback = function(value) Sense.teamSettings.enemy.boxColor[1] = value Sense.teamSettings.friendly.boxColor[1] = value end})   
+
+local HealthColors = ESP:AddToggle({text = "Health Bar", flag = "A1",
+       callback = function(bool)
+           if bool then
+               Sense.teamSettings.enemy.healthBar = true Sense.teamSettings.friendly.healthBar = true
+           else
+               Sense.teamSettings.enemy.healthBar = false Sense.teamSettings.friendly.healthBar = false
+           end
+       end})
+HealthColors:AddColor({text = "Outline Color", color = Color3.new(0,0,0), flag = "A13", callback = function(value) Sense.teamSettings.enemy.healthBarOutlineColor[1] = value  Sense.teamSettings.friendly.healthBarOutlineColor[1] = value end})   
+HealthColors:AddColor({text = "Low HP Color", color = Color3.new(1,0,0), flag = "A13", callback = function(value) Sense.teamSettings.enemy.dyingColor = value Sense.teamSettings.friendly.dyingColor = value end})   
+HealthColors:AddColor({text = "High HP Color", color = Color3.new(0,1,0), flag = "A13", callback = function(value) Sense.teamSettings.enemy.healthyColor = value Sense.teamSettings.friendly.healthyColor = value end})   
+
+local HealthTextColors = ESP:AddToggle({text = "Health Text", flag = "A1",
+       callback = function(bool)
+           if bool then
+               Sense.teamSettings.enemy.healthText = true Sense.teamSettings.friendly.healthText = true
+           else
+               Sense.teamSettings.enemy.healthText = false Sense.teamSettings.friendly.healthText = false
+           end
+       end})
+HealthTextColors:AddColor({text = "Outline Color", flag = "A13", color = Color3.new(0,0,0), callback = function(value) Sense.teamSettings.enemy.healthTextOutlineColor = value Sense.teamSettings.friendly.healthTextOutlineColor = value end})   
+HealthTextColors:AddColor({text = "Main Color", flag = "A13", color = Color3.new(255,255,255), callback = function(value) Sense.teamSettings.enemy.healthTextColor[1] = value Sense.teamSettings.friendly.healthTextColor[1] = value end})   
+
+local NameColor = ESP:AddToggle({text = "Names", flag = "A1",
+       callback = function(bool)
+           if bool then
+               Sense.teamSettings.enemy.name = true Sense.teamSettings.friendly.name = true
+           else
+               Sense.teamSettings.enemy.name = false Sense.teamSettings.friendly.name = false
+           end
+       end})
+NameColor:AddColor({text = "Outline Color", flag = "A13", color = Color3.new(0,0,0), callback = function(value) Sense.teamSettings.enemy.nameOutlineColor = value Sense.teamSettings.friendly.nameOutlineColor = value end})   
+NameColor:AddColor({text = "Main Color", flag = "A13", callback = function(value) Sense.teamSettings.enemy.nameColor[1] = value Sense.teamSettings.friendly.nameColor[1] = value end})   
+
+local WeaponColor = ESP:AddToggle({text = "Weapon", flag = "A1",
+       callback = function(bool)
+           if bool then
+               Sense.teamSettings.enemy.weapon = true Sense.teamSettings.friendly.weapon = true
+           else
+               Sense.teamSettings.enemy.weapon = false Sense.teamSettings.friendly.weapon = false
+           end
+       end})
+WeaponColor:AddColor({text = "Outline Color", flag = "A13", color = Color3.new(0,0,0), callback = function(value) Sense.teamSettings.enemy.weaponOutlineColor = value Sense.teamSettings.friendly.weaponOutlineColor = value end})   
+WeaponColor:AddColor({text = "Main Color", flag = "A13", callback = function(value) Sense.teamSettings.enemy.weaponColor[1] = value Sense.teamSettings.friendly.weaponColor[1] = value end})   
+
+
+local DistanceColor = ESP:AddToggle({text = "Distance", flag = "A1",
+       callback = function(bool)
+           if bool then
+               Sense.teamSettings.enemy.distance = true Sense.teamSettings.friendly.distance = true
+           else
+               Sense.teamSettings.enemy.distance = false Sense.teamSettings.friendly.distance = false
+           end
+       end})
+DistanceColor:AddColor({text = "Outline Color", flag = "A13", color = Color3.new(0,0,0), callback = function(value) Sense.teamSettings.enemy.distanceOutlineColor = value Sense.teamSettings.friendly.distanceOutlineColor = value end})   
+DistanceColor:AddColor({text = "Main Color", flag = "A13", callback = function(value) Sense.teamSettings.enemy.distanceColor[1] = value Sense.teamSettings.friendly.distanceColor[1] = value end})   
+
+ESP:AddToggle({text = "Limit Distance", flag = "A1",
+       callback = function(bool)
+           if bool then
+               Sense.sharedSettings.limitDistance = true
+           else
+               Sense.sharedSettings.limitDistance = false
            end
        end})
 
-ESP:AddToggle({text = "Team Check", flag = "E1",
+ESP:AddSlider({text = "Max Distance", flag = "S13", suffix = "", min = 0, max = 5000, increment = 5, callback = function(value) Sense.sharedSettings.maxDistance = value end})
+
+local TracerColor = ESP:AddToggle({text = "Tracer", flag = "A1",
        callback = function(bool)
            if bool then
-               espLib.options.teamCheck = true
+               Sense.teamSettings.enemy.tracer = true Sense.teamSettings.friendly.tracer = true
            else
-               espLib.options.teamCheck = false
+               Sense.teamSettings.enemy.tracer = false Sense.teamSettings.friendly.tracer = false
            end
        end})
+TracerColor:AddColor({text = "Outline Color", flag = "A13", color = Color3.new(0,0,0), callback = function(value) Sense.teamSettings.enemy.tracerOutlineColor[1] = value Sense.teamSettings.friendly.tracerOutlineColor[1] = value end})   
+TracerColor:AddColor({text = "Name Color", flag = "A13", callback = function(value) Sense.teamSettings.enemy.tracerColor[1] = value Sense.teamSettings.friendly.tracerColor[1] = value end})   
 
-ESP:AddList({text = "Tracer Type", flag = "S7", selected = 'Mouse', values = {'Mouse', 'Bottom', 'Top'},
-       callback = function()
-       end})
-       
-ESP:AddSlider({text = "Distance", flag = "S13", suffix = "", min = 0, max = 5000, increment = 5, callback = function(value) espLib.options.maxDistance = value end})
-
-       
-ESP:AddButton({text = "Unload ESP", flag = "E1",
-       callback = function()
-        espLib:Unload()
-       end})
-
-local Chams = ESP:AddToggle({text = "Chams", flag = "E1",
-       callback = function(bool)
-           if bool then
-               espLib.options.chams = true
-           else
-               espLib.options.chams = false
-           end
-       end})
-Chams:AddColor({text = "Fill Color", flag = "A13", callback = function(value) espLib.options.chamsFillColor = value end})        
-Chams:AddColor({text = "Outline Color", flag = "A13", callback = function(value) espLib.options.chamsOutlineColor = value end}) 
---- // Movement // ---
-Walkspeed:AddToggle({text = "Enable", risky = true, flag = "",
-     callback = function(bool)
-           if bool then
-               print("Toggle")
-           else
-               print("Untoggle")
-           end
-       end}):AddBind({text = "Walkspeed", state = false, mode = 'toggle', bind = 'None', flag = "a", togglecallback = function(e)
-       end})
-
-Walkspeed:AddSlider({text = "Speed", risky = true, flag = '"', suffix = "", min = 0, max = 5, increment = .1 , callback = function(value) getgenv().speedvalue = value end})  
-
-
-Fly:AddToggle({text = "Enable", risky = true, flag = "a",
-       callback = function(bool)
-           if bool then
-               print("Toggle")
-           else
-               print("Untoggle")
-           end
-       end}):AddBind({text = "Fly", state = false, mode = 'toggle', bind = 'None', flag = "a", callback = function(bool) end})  
-
-Fly:AddSlider({text = "Speed", risky = true, flag = '"', suffix = "", min = 0, max = 5, increment = .1})
-
-FakeLag:AddToggle({text = "Enable", risky = true, flag = "a",
-       callback = function(bool)
-           if bool then
-               print("Toggle")
-           else
-               print("Untoggle")
-           end
-       end}):AddBind({text = "Fake Lag", state = false, mode = 'toggle', bind = 'None', flag = "a", callback = function(bool) end})  
-
-FakeLag:AddSlider({text = "Intensity", risky = true, flag = '"', suffix = "", min = 0, max = 10, increment = 1})
-
-FOV:AddToggle({text = "Enable", risky = false, flag = "a",
-       callback = function(bool)
-           if bool then
-               print("Toggle")
-           else
-               print("Untoggle")
-           end
-       end}):AddBind({text = "Fake Lag", state = false, mode = 'toggle', bind = 'None', flag = "a", callback = function(bool) end})  
-
-
-FOV:AddSlider({text = "Value", risky = false, flag = '"', suffix = "", min = 70, max = 120, increment = 1, value = 070, callback = function(value)
-end})
-
-ThirdPerson:AddToggle({text = "Enable", risky = false, flag = "a",
-       callback = function(bool)
-           if bool then
-               print("Toggle")
-           else
-               print("Untoggle")
-           end
-       end}):AddBind({text = "Third Person", state = false, mode = 'toggle', bind = 'None', flag = "a", callback = function(bool) end})  
-
-
-ThirdPerson:AddSlider({text = "Distance", risky = false, flag = '"', suffix = "", min = 0, max = 15, increment = 1, value = 0})
---- // Miscellaneous // ---
-Main:AddToggle({text = "Join Logs", risky = false, flag = "a",
-       callback = function(bool)
-           if bool then
-               
-           else
-               
-           end
+ESP:AddList({text = "Tracer Type", flag = "S7", selected = 'Bottom', values = {'Bottom', 'Top', 'Middle'},
+       callback = function(value) Sense.teamSettings.enemy.tracerOrigin = value Sense.teamSettings.friendly.tracerOrigin = value
        end})
        
-Main:AddToggle({text = "Leave Logs", risky = false, flag = "a",
-callback = function(bool)
-           if bool then
-               game:GetService("Players").PlayerRemoving:Connect(function(player)
-    library:SendNotification(player.Name..' | Left ', 3);
-end)
-           else
-                  function notification:Remove()
-            library.notifications:SendNotification(player.Name..' | Left ', 3);
-            self.holder:Remove();
-            library:UpdateNotifications()
-        end
-           end
-       end})
-       
-Main:AddToggle({text = "Staff Viewer", risky = false, flag = "a",
+local ArrowColor = ESP:AddToggle({text = "Off Screen Arrow", flag = "A1",
        callback = function(bool)
            if bool then
-               print("Toggle")
+               Sense.teamSettings.enemy.offScreenArrow = true Sense.teamSettings.friendly.offScreenArrow = true
            else
-               print("Untoggle")
+               Sense.teamSettings.enemy.offScreenArrow = false Sense.teamSettings.friendly.offScreenArrow = false
            end
        end})
------ // Notification // -----
+ArrowColor:AddColor({text = "Outline Color", flag = "A13", color = Color3.new(0,0,0), callback = function(value) Sense.teamSettings.friendly.offScreenArrowOutlineColor[1] = value Sense.teamSettings.enemy.offScreenArrowOutlineColor[1] = value end})   
+ArrowColor:AddColor({text = "Main Color", flag = "A13", color = Color3.new(255,255,255), callback = function(value) Sense.teamSettings.friendly.offScreenArrowColor[1] = value Sense.teamSettings.enemy.offScreenArrowColor[1] = value end})   
+ 
 wait(0.15)
 library:SendNotification(library.cheatname..' | Loaded ', 3)
 -----
+function EspInterface.getWeapon(player)
+  return "Unknown";
+end
+
+function EspInterface.isFriendly(player)
+  return player.Team and player.Team == localPlayer.Team;
+end
+
+function EspInterface.getCharacter(player)
+  return player.Character;
+end
+
+function EspInterface.getHealth(character)
+  local humanoid = character and findFirstChildOfClass(character, "Humanoid");
+  if humanoid then
+    return humanoid.Health, humanoid.MaxHealth;
+  end
+  return 100, 100;
+end
