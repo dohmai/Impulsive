@@ -20,10 +20,7 @@ local SilentAim = AimingTab:AddSection("Silent Aim", 2)
 local ESP = VisualsTab:AddSection("ESP", 1)
 
 local Misc = PlayerTab:AddSection("Misc", 1)
-local ThirdPerson = PlayerTab:AddSection("Third Person", 1)
 local Walkspeed = PlayerTab:AddSection("Walkspeed", 2)
-local Fly = PlayerTab:AddSection("Fly", 2)
-local FakeLag = PlayerTab:AddSection("Fake Lag", 2)
 
 local Main = MiscellaneousTab:AddSection("Main", 1)
 
@@ -35,7 +32,7 @@ ESP:AddToggle({text = "Enable", flag = "A1",
            else
                Sense.teamSettings.enemy.enabled = false Sense.teamSettings.friendly.enabled = false
            end
-       end}):AddBind({text = "Toggle", state = false, mode = 'toggle', bind = 'None', flag = "A2", callback = function(bool) Sense.teamSettings.enemy.enabled = bool Sense.teamSettings.friendly.enabled = bool end})  
+       end}):AddBind({text = "ESP", state = false, mode = 'toggle', bind = 'None', flag = "A2", callback = function(bool) Sense.teamSettings.enemy.enabled = bool Sense.teamSettings.friendly.enabled = bool end})  
 
 ESP:AddToggle({text = "Team Check", flag = "A1",
        callback = function(bool)
@@ -55,7 +52,17 @@ local BoxColors = ESP:AddToggle({text = "Boxes", flag = "A1",
            end
        end})
 BoxColors:AddColor({text = "Outline Color", flag = "A13",color = Color3.new(255,255,255), callback = function(value) Sense.teamSettings.enemy.boxOutlineColor[1] = value Sense.teamSettings.friendly.boxOutlineColor[1] = value end})   
-BoxColors:AddColor({text = "Inline Color", color = Color3.new(255,255,255), flag = "A13", callback = function(value) Sense.teamSettings.enemy.boxColor[1] = value Sense.teamSettings.friendly.boxColor[1] = value end})   
+BoxColors:AddColor({text = "Main Color", color = Color3.new(255,255,255), flag = "A13", callback = function(value) Sense.teamSettings.enemy.boxColor[1] = value Sense.teamSettings.friendly.boxColor[1] = value end})   
+
+ESP:AddToggle({text = "Box Fill", flag = "A1",
+       callback = function(bool)
+           if bool then
+               Sense.teamSettings.enemy.boxFill = true Sense.teamSettings.friendly.boxFill = true
+           else
+               Sense.teamSettings.enemy.boxFill = false Sense.teamSettings.friendly.boxFill = false
+           end
+       end}):AddColor({text = "Main Color", color = Color3.new(255,255,255), flag = "A13", callback = function(value) Sense.teamSettings.enemy.boxFillColor[1] = value Sense.teamSettings.friendly.boxFillColor[1] = value end})   
+
 
 local HealthColors = ESP:AddToggle({text = "Health Bar", flag = "A1",
        callback = function(bool)
@@ -123,7 +130,7 @@ ESP:AddToggle({text = "Limit Distance", flag = "A1",
            end
        end})
 
-ESP:AddSlider({text = "Max Distance", flag = "S13", suffix = "", min = 0, max = 5000, increment = 5, callback = function(value) Sense.sharedSettings.maxDistance = value end})
+ESP:AddSlider({text = "Max Distance", flag = "S13", suffix = "", value = 2500, min = 0, max = 5000, increment = 10, callback = function(value) Sense.sharedSettings.maxDistance = value end})
 
 local TracerColor = ESP:AddToggle({text = "Tracer", flag = "A1",
        callback = function(bool)
@@ -150,20 +157,43 @@ local ArrowColor = ESP:AddToggle({text = "Off Screen Arrow", flag = "A1",
        end})
 ArrowColor:AddColor({text = "Outline Color", flag = "A13", color = Color3.new(255,255,255), callback = function(value) Sense.teamSettings.friendly.offScreenArrowOutlineColor[1] = value Sense.teamSettings.enemy.offScreenArrowOutlineColor[1] = value end})   
 ArrowColor:AddColor({text = "Main Color", flag = "A13", color = Color3.new(255,255,255), callback = function(value) Sense.teamSettings.friendly.offScreenArrowColor[1] = value Sense.teamSettings.enemy.offScreenArrowColor[1] = value end})   
--------------------
 
-Walkspeed:AddToggle({text = "Enable", flag = "A1",
+ESP:AddSlider({text = "Arrow Radius", flag = "S13", suffix = "", value = 150, min = 0, max = 300, increment = 5, callback = function(value) Sense.teamSettings.friendly.offScreenArrowRadius = value Sense.teamSettings.enemy.offScreenArrowRadius = value end})
+
+ESP:AddSlider({text = "Arrow Size", flag = "S13", suffix = "", value = 15, min = 0, max = 20, increment = 1, callback = function(value) Sense.teamSettings.friendly.offScreenArrowSize = value Sense.teamSettings.enemy.offScreenArrowSize = value end})
+
+local ChamsColor = ESP:AddToggle({text = "Chams", flag = "A1",
        callback = function(bool)
            if bool then
-               Sense.teamSettings.enemy.enabled = true Sense.teamSettings.friendly.enabled = true
+               Sense.teamSettings.enemy.chams = true Sense.teamSettings.friendly.chams = true
            else
-               Sense.teamSettings.enemy.enabled = false Sense.teamSettings.friendly.enabled = false
+               Sense.teamSettings.enemy.chams = false Sense.teamSettings.friendly.chams = false
            end
-       end}):AddBind({text = "Toggle", state = false, mode = 'toggle', bind = 'None', flag = "A2", callback = function(bool) Sense.teamSettings.enemy.enabled = bool Sense.teamSettings.friendly.enabled = bool end})  
+       end})
+ChamsColor:AddColor({text = "Outline Color", flag = "A13", color = Color3.new(255,255,255), callback = function(value) Sense.teamSettings.friendly.chamsOutlineColor[1] = value Sense.teamSettings.enemy.chamsOutlineColor[1] = value end})   
+ChamsColor:AddColor({text = "Main Color", flag = "A13", color = Color3.new(255,255,255), callback = function(value) Sense.teamSettings.friendly.chamsFillColor[1] = value Sense.teamSettings.enemy.chamsFillColor[1] = value end})   
 
+ESP:AddToggle({text = "Wall Check", flag = "A1",
+       callback = function(bool)
+           if bool then
+               Sense.teamSettings.enemy.chamsVisibleOnly = true Sense.teamSettings.friendly.chamsVisibleOnly = true
+           else
+               Sense.teamSettings.enemy.chamsVisibleOnly = false Sense.teamSettings.friendly.chamsVisibleOnly = false
+           end
+       end})
+-------------------
 
+Walkspeed:AddToggle({text = "Enable", flag = "A1", callback = function()
 
-Misc:AddBind({text = "Quick Reset", state = false, mode = 'hold', bind = 'None', flag = "A2", callback = function(bool) game.Players.LocalPlayer.Character.Humanoid.Health = 0 end})  
+end})
+
+Walkspeed:AddBind({text = "Toggle", state = false, mode = 'toggle', bind = 'None', flag = "A2", callback = function(value) end})  
+
+Walkspeed:AddSlider({text = "Speed", flag = "S13", suffix = "", value = 1, min = 0, max = 100, increment = 0.1, callback = function(value) end})
+
+-------------------------
+
+Misc:AddBind({text = "Quick Reset", state = false, noindicator = true, mode = 'hold', bind = 'None', flag = "A2", callback = function(bool) game.Players.LocalPlayer.Character.Humanoid.Health = 0 end})  
 
 
 -----------------
