@@ -62,7 +62,7 @@ Aimbot:AddToggle({text = "Third Person", flag = "A1",
            end
        end})
 
-Aimbot:AddSlider({text = "Third Person Smoothing", flag = "S13", suffix = "", value = 1.5, min = 0, max = 3, increment = 0.1, callback = function(value) getgenv().Aimbot.Settings.ThirdPersonSensitivity = value end})
+Aimbot:AddSlider({text = "Third Person Smoothing", flag = "S13", suffix = "", value = 1, min = 0, max = 2, increment = 0.1, callback = function(value) getgenv().Aimbot.Settings.ThirdPersonSensitivity = value end})
 
 Aimbot:AddSeparator({text = 'Settings'})
 
