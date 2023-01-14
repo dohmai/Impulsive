@@ -38,6 +38,15 @@ Aimbot:AddToggle({text = "Enable", flag = "A1",
            end
        end})
 
+Aimbot:AddToggle({text = "Toggle", flag = "A1",
+       callback = function(bool)
+           if bool then
+               getgenv().Aimbot.Settings.Toggle  = true  
+           else
+               getgenv().Aimbot.Settings.Toggle  = false  
+           end
+       end})
+
 Aimbot:AddSlider({text = "First Person Smoothing", flag = "S13", suffix = "", value = 1.5, min = 0, max = 3, increment = 0.1, callback = function(value) getgenv().Aimbot.Settings.Sensitivity = value end})
       
 Aimbot:AddToggle({text = "Third Person", flag = "A1",
