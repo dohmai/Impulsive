@@ -37,7 +37,7 @@ Aimbot:AddToggle({text = "Enable", flag = "A1",
                getgenv().Aimbot.Settings.Enabled = false getgenv().Aimbot.FOVSettings.Visible = false  
            end
        end})
-
+       
 Aimbot:AddToggle({text = "Toggle", flag = "A1",
        callback = function(bool)
            if bool then
@@ -45,6 +45,10 @@ Aimbot:AddToggle({text = "Toggle", flag = "A1",
            else
                getgenv().Aimbot.Settings.Toggle  = false  
            end
+       end})
+
+Aimbot:AddList({text = "Keybind", flag = "S7", selected = 'MouseButton1', values = {'MouseButton1', 'MouseButton2'},
+       callback = function(value) getgenv().Aimbot.Settings.TriggerKey = value
        end})
 
 Aimbot:AddSlider({text = "First Person Smoothing", flag = "S13", suffix = "", value = 1.5, min = 0, max = 3, increment = 0.1, callback = function(value) getgenv().Aimbot.Settings.Sensitivity = value end})
