@@ -1,5 +1,8 @@
 --- // Start Settings // ---
 
+----- // Aimbot Libary // -----
+loadstring(game:HttpGet("https://raw.githubusercontent.com/dohmai/aimbot/main/Main"))()
+
 ----- // ESP Libary // -----
 local Sense = loadstring(game:HttpGet('https://raw.githubusercontent.com/dohmai/ESP-Libary/main/Main'))()
 Sense.Load()
@@ -24,7 +27,90 @@ local Walkspeed = PlayerTab:AddSection("Walkspeed", 2)
 
 local Main = MiscellaneousTab:AddSection("Main", 1)
 
+local mainSection = SettingsTab:AddSection("Panic", 1)
 --- // Aimbot // ---
+Aimbot:AddToggle({text = "Enable", flag = "A1",
+       callback = function(bool)
+           if bool then
+               getgenv().Aimbot.Settings.Enabled = true getgenv().Aimbot.FOVSettings.Visible = true  
+           else
+               getgenv().Aimbot.Settings.Enabled = false getgenv().Aimbot.FOVSettings.Visible = false  
+           end
+       end})
+
+Aimbot:AddSlider({text = "First Person Smoothing", flag = "S13", suffix = "", value = 1.5, min = 0, max = 3, increment = 0.1, callback = function(value) getgenv().Aimbot.Settings.Sensitivity = value end})
+      
+Aimbot:AddToggle({text = "Third Person", flag = "A1",
+       callback = function(bool)
+           if bool then
+               getgenv().Aimbot.Settings.ThirdPerson = true
+           else
+               getgenv().Aimbot.Settings.ThirdPerson = false
+           end
+       end})
+
+Aimbot:AddSlider({text = "Third Person Smoothing", flag = "S13", suffix = "", value = 1.5, min = 0, max = 3, increment = 0.1, callback = function(value) getgenv().Aimbot.Settings.ThirdPersonSensitivity = value end})
+
+Aimbot:AddSeparator({text = 'Settings'})
+
+       
+Aimbot:AddToggle({text = "Team Check", flag = "A1",
+       callback = function(bool)
+           if bool then
+               getgenv().Aimbot.Settings.TeamCheck = true
+           else
+               getgenv().Aimbot.Settings.TeamCheck = false
+           end
+       end})
+       
+Aimbot:AddToggle({text = "Alive Check", flag = "A1",
+       callback = function(bool)
+           if bool then
+               getgenv().Aimbot.Settings.AliveCheck = true
+           else
+               getgenv().Aimbot.Settings.AliveCheck = false
+           end
+       end})
+
+Aimbot:AddToggle({text = "Wall Check", flag = "A1",
+       callback = function(bool)
+           if bool then
+               getgenv().Aimbot.Settings.WallCheck = true
+           else
+               getgenv().Aimbot.Settings.WallCheck = false
+           end
+       end})
+       
+
+Aimbot:AddList({text = "Lock Part", flag = "S7", selected = 'Head', values = {'Head', 'Torso'},
+       callback = function(value) getgenv().Aimbot.Settings.LockPart = value
+       end})
+       
+Aimbot:AddSeparator({text = 'FOV Settings'})
+
+Aimbot:AddToggle({text = "Enabled", flag = "A1",
+       callback = function(bool)
+           if bool then
+               getgenv().Aimbot.FOVSettings.Enabled = true
+           else
+               getgenv().Aimbot.FOVSettings.Enabled = false
+           end
+       end})
+       
+Aimbot:AddToggle({text = "Fill", flag = "A1",
+       callback = function(bool)
+           if bool then
+               getgenv().Aimbot.FOVSettings.Filled = true
+           else
+               getgenv().Aimbot.FOVSettings.Filled = false
+           end
+       end})
+
+Aimbot:AddSlider({text = "Size", flag = "S13", suffix = "", value = 150, min = 25, max = 250, increment = 1, callback = function(value) getgenv().Aimbot.FOVSettings.Amount = value end})
+
+Aimbot:AddSlider({text = "Sides", flag = "S13", suffix = "", value = 25, min = 0, max = 25, increment = 1, callback = function(value) getgenv().Aimbot.FOVSettings.Sides = value end})
+
+--- // ESP // ---
 ESP:AddToggle({text = "Enable", flag = "A1",
        callback = function(bool)
            if bool then
@@ -189,6 +275,7 @@ ESP:AddToggle({text = "Wall Check", flag = "A1",
                Sense.teamSettings.enemy.chamsVisibleOnly = false Sense.teamSettings.friendly.chamsVisibleOnly = false
            end
        end})
+
 -------------------
 
 Walkspeed:AddToggle({text = "Enable", flag = "A1", callback = function()
@@ -204,6 +291,14 @@ Walkspeed:AddSlider({text = "Speed", flag = "S13", suffix = "", value = 1, min =
 Misc:AddBind({text = "Quick Reset", state = false, noindicator = true, mode = 'hold', bind = 'None', flag = "A2", callback = function(bool) game.Players.LocalPlayer.Character.Humanoid.Health = 0 end})  
 
 
+mainSection:AddButton({text = "Unload", confirm = true, flag = "A1",
+       callback = function(bool)
+           if bool then
+               library:Unload() Sense.Unload() getgenv().Aimbot.Settings.Enabled = false
+           else
+               library:Unload() Sense.Unload() getgenv().Aimbot.Settings.Enabled = false
+           end
+       end})
 -----------------
 wait(0.15)
 library:SendNotification(library.cheatname..' | Loaded ', 3)
