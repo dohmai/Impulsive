@@ -130,7 +130,7 @@ ESP:AddToggle({text = "Enable", flag = "espEnabled",
            else
                Sense.teamSettings.enemy.enabled = false Sense.teamSettings.friendly.enabled = false
            end
-       end}):AddBind({text = "ESP", state = false, mode = 'toggle', bind = 'None', flag = "A2", callback = function(bool) Sense.teamSettings.enemy.enabled = bool Sense.teamSettings.friendly.enabled = bool end})  
+       end}):AddBind({text = "ESP Enabled", state = false, mode = 'toggle', bind = 'None', flag = "A2", callback = function(bool) Sense.teamSettings.enemy.enabled = bool Sense.teamSettings.friendly.enabled = bool end})  
        
 local BoxColors = ESP:AddToggle({text = "Boxes", flag = "espBoxes",
        callback = function(bool)
