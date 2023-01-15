@@ -28,7 +28,7 @@ local Main = MiscellaneousTab:AddSection("Main", 1)
 
 local mainSection = SettingsTab:AddSection("Panic", 1)
 --- // Aimbot // ---
-Aimbot:AddToggle({text = "Enable", flag = "A1",
+Aimbot:AddToggle({text = "Enable", flag = "enableAimbot",
        callback = function(bool)
            if bool then
                getgenv().Aimbot.Settings.Enabled = true getgenv().Aimbot.FOVSettings.Visible = true  
@@ -37,7 +37,7 @@ Aimbot:AddToggle({text = "Enable", flag = "A1",
            end
        end})
        
-Aimbot:AddToggle({text = "Toggle", flag = "A1",
+Aimbot:AddToggle({text = "Toggle", flag = "toggleAimbot",
        callback = function(bool)
            if bool then
                getgenv().Aimbot.Settings.Toggle  = true  
@@ -46,7 +46,7 @@ Aimbot:AddToggle({text = "Toggle", flag = "A1",
            end
        end})
 
-Aimbot:AddList({text = "Keybind", flag = "S7", selected = 'MouseButton1', values = {'MouseButton1', 'MouseButton2'},
+Aimbot:AddList({text = "Keybind", flag = "keybindAimbot", selected = 'MouseButton1', values = {'MouseButton1', 'MouseButton2', 'E', 'LCtrl'},
        callback = function(value) getgenv().Aimbot.Settings.TriggerKey = value
        end})
 
