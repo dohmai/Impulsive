@@ -46,7 +46,7 @@ Aimbot:AddToggle({text = "Toggle", flag = "toggleAimbot",
            end
        end})
 
-Aimbot:AddList({text = "Keybind", flag = "keybindAimbot", selected = 'MouseButton1', values = {'MouseButton1', 'MouseButton2', 'E', 'LCtrl'},
+Aimbot:AddList({text = "Keybind", flag = "keybindAimbot", selected = 'MouseButton1', values = {'MouseButton1', 'MouseButton2', 'E', 'Q', 'LeftControl'},
        callback = function(value) getgenv().Aimbot.Settings.TriggerKey = value
        end})
 
