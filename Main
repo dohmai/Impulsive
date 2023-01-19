@@ -235,8 +235,8 @@ ESP:AddToggle({text = "Distance Check", flag = "espLimitDistance",
                Sense.sharedSettings.limitDistance = false
            end
        end})
-
-ESP:AddSlider({text = "Max Distance", flag = "espMaxDistance", suffix = "", value = 2500, min = 0, max = 5000, increment = 10, callback = function(value) Sense.sharedSettings.maxDistance = value end})
+       
+ESP:AddSlider({text = "Max Distance", flag = "espMaxDistance", suffix = " Studs", value = 2500, min = 0, max = 5000, increment = 10, callback = function(value) Sense.sharedSettings.maxDistance = value end})
 
 ESP:AddSeparator({text = 'Tracer'})
 
@@ -322,8 +322,9 @@ MapESP:AddToggle({text = "Limit Distance", flag = "testmapLimitDistance",
            else
                object.options.limitDistance = false
            end
-       end}):AddSlider({text = "Max Distance", flag = "testmapMaxDistance", suffix = "", value = 2500, min = 0, max = 5000, increment = 10, callback = function(value) object.options.maxDistance = value end})
+       end})
 
+MapESP:AddSlider({text = "Max Distance", flag = "testmapMaxDistance", suffix = " Studs", value = 2500, min = 0, max = 5000, increment = 10, callback = function(value) object.options.maxDistance = value end})
 -------------------------
 
 Misc:AddBind({text = "Quick Reset", state = false, noindicator = true, mode = 'hold', bind = 'None', flag = "miscQuickReset", callback = function(bool) game.Players.LocalPlayer.Character.Humanoid.Health = 0 end})  
