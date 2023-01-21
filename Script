@@ -170,6 +170,14 @@ ESP:AddToggle({text = "Box Fill", flag = "espBoxFill",
            end
        end}):AddColor({text = "Main Color", color = Color3.new(255,255,255), flag = "espBoxFillColor", callback = function(value) Sense.teamSettings.enemy.boxFillColor[1] = value Sense.teamSettings.friendly.boxFillColor[1] = value end})   
 
+ESP:AddToggle({text = "3D Boxes", flag = "espBoxFill",
+       callback = function(bool)
+           if bool then
+               Sense.teamSettings.enemy.box3d = true Sense.teamSettings.friendly.box3d = true
+           else
+               Sense.teamSettings.enemy.box3d = false Sense.teamSettings.friendly.box3d = false
+           end
+       end}):AddColor({text = "Main Color", color = Color3.new(255,255,255), flag = "espBoxFillColor", callback = function(value) Sense.teamSettings.enemy.box3dColor[1] = value Sense.teamSettings.friendly.box3dColor[1] = value end})   
 
 local HealthColors = ESP:AddToggle({text = "Health Bar", flag = "espHealthColors",
        callback = function(bool)
