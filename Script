@@ -33,17 +33,7 @@ local Main = MiscellaneousTab:AddSection("Main", 1)
 local mainSection = SettingsTab:AddSection("Panic", 1)
 
 -----
-local object = Sense.AddInstance(workspace.Baseplate, {
-    enabled = false,
-    text = "{name}\n{distance} Studs",
-    textColor = { Color3.new(255,255,1), 1 },
-    textOutline = true,
-    textOutlineColor = Color3.new(),
-    textSize = 13,
-    textFont = 2,
-    limitDistance = true,
-    maxDistance = 150
-})
+
 
 --- // Aimbot // ---
 Aimbot:AddToggle({text = "Enable", flag = "enableAimbot",
@@ -340,15 +330,23 @@ MapESP:AddSlider({text = "Max Distance", flag = "testmapMaxDistance", suffix = "
 Misc:AddBind({text = "Quick Reset", state = false, noindicator = true, mode = 'hold', bind = 'None', flag = "miscQuickReset", callback = function(bool) game.Players.LocalPlayer.Character.Humanoid.Health = 0 end})  
 
 -------------------------
-Main:AddToggle({text = "Limit Distance", flag = "testmapLimitDistance",
-       callback = function(bool)
-           if bool then
-               object.options.limitDistance = true
-           else
-               object.options.limitDistance = false
-           end
-       end})
+local speed = Walkspeed:AddToggle({text = "Enable", flag = "enableWalkspeed",
+       callback = function(value)
+               getgenv().CSpeed = value
+       end}):AddBind({text = "Walkspeed Enabled", state = false, mode = 'toggle', bind = 'None', flag = "A2", callback = function(value) getgenv().CSpeed = value end})  
+       
 
+Walkspeed:AddSlider({text = "Speed", flag = "speedValue", suffix = "", value = 0.35, min = 0, max = 5, increment = 0.05, callback = function(value) getgenv().CSpeedValue = value end})
+
+-- // Speed // --
+game:GetService("RunService").Heartbeat:Connect(
+    function()
+        if getgenv().CSpeed == true then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame +
+                game.Players.LocalPlayer.Character.Humanoid.MoveDirection * CSpeedValue
+        end
+    end)
 
 mainSection:AddButton({text = "Unload", confirm = true,
        callback = function(bool)
@@ -362,6 +360,7 @@ mainSection:AddButton({text = "Unload", confirm = true,
 wait(0.15)
 library:SendNotification(library.cheatname..' | Loaded ', 3)
 -----
+
 function EspInterface.getWeapon(player)
   return "Unknown";
 end
