@@ -4743,21 +4743,6 @@ function library:CreateSettingsTab(menu)
         library:SetOpen(not library.open)
     end});
 
-    mainSection:AddToggle({text = 'Disable Movement If Open', flag = 'disablemenumovement', callback = function(bool)
-        if bool and library.open then
-            actionservice:BindAction(
-                'FreezeMovement',
-                function()
-                    return Enum.ContextActionResult.Sink
-                end,
-                false,
-                unpack(Enum.PlayerActions:GetEnumItems())
-            )
-        else
-            actionservice:UnbindAction('FreezeMovement');
-        end
-    end})
-
     mainSection:AddButton({text = 'Join Discord', flag = 'joindiscord', confirm = true, callback = function()
         local res = syn.request({
             Url = 'https://discord.gg/rkRW5VrbWu',
@@ -4775,10 +4760,6 @@ function library:CreateSettingsTab(menu)
         if res.Success then
             library:SendNotification(library.cheatname..' | Joined Discord', 3);
         end
-    end})
-    
-    mainSection:AddButton({text = 'Copy Discord', flag = 'copydiscord', callback = function()
-        setclipboard('discord.gg/rkRW5VrbWu')
     end})
 
     mainSection:AddButton({text = 'Rejoin Server', confirm = true, callback = function()
