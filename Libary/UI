@@ -4701,7 +4701,7 @@ end
 
 function library:CreateSettingsTab(menu)
     local settingsTab = menu:AddTab('Settings', 999);
-    local configSection = settingsTab:AddSection('Config', 2);
+    local configSection = settingsTab:AddSection('Config', 1);
     local mainSection = settingsTab:AddSection('Main', 1);
 
     configSection:AddBox({text = 'Config Name', flag = 'configinput'})
@@ -4823,9 +4823,9 @@ function library:CreateSettingsTab(menu)
     for _,v in next, library.themes do
         table.insert(themeStrings, v.name)
     end
-    
+    local themeSection = settingsTab:AddSection('Custom Theme', 2);
     local setByPreset = false
-mainSection:AddList({text = 'Presets', flag = 'preset_theme', values = themeStrings, callback = function(newTheme)
+themeSection:AddList({text = 'Presets', flag = 'preset_theme', values = themeStrings, callback = function(newTheme)
         if newTheme == "Custom" then return end
         setByPreset = true
         for _,v in next, library.themes do
@@ -4843,7 +4843,7 @@ mainSection:AddList({text = 'Presets', flag = 'preset_theme', values = themeStri
     end}):Select('Default');
 
     for i, v in pairs(library.theme) do
-        mainSection:AddColor({text = i, flag = i, color = library.theme[i], callback = function(c3)
+        themeSection:AddColor({text = i, flag = i, color = library.theme[i], callback = function(c3)
             library.theme[i] = c3
             library:SetTheme(library.theme)
             if not setByPreset and not setByConfig then 
