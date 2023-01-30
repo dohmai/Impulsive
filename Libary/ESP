@@ -156,7 +156,7 @@ function ESP:Get_Tool(Player)
             return Tool.Name
         end
     end
-    return "Hands"
+    return ""
 end
 
 function ESP:Get_Health(Player)
