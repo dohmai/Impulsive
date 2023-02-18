@@ -1,0 +1,144 @@
+-- [Variables] ------------------------------------------------------------------------------------------------------------------------------------------------------------
+local Decimals = 4 
+local Clock = os.clock()
+
+local startTime = os.time()
+
+local playerlist = {}
+for i,v in pairs(game.Players:GetPlayers())do
+    if v ~= game.Players.LocalPlayer then
+    table.insert(playerlist,v.Name)
+    end
+end
+
+local plr = game.Players.LocalPlayer
+local old = plr.Character.HumanoidRootPart.CFrame
+-- [Libary] ------------------------------------------------------------------------------------------------------------------------------------------------------------
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/dohmai/Kitty/main/Libraries/UI"))({cheatname = "Mommy", gamename = "Los Angeles County"})
+library:init()
+-- [Window UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
+local menu = library.NewWindow({title = "Mommy | Los Angeles County", size = UDim2.new(0, 510, 0.6, 6)})
+-- [Tabs UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
+local Tab1 = menu:AddTab("  Combat  ")
+local Tab2 = menu:AddTab("  Player  ")
+local Tab3 = menu:AddTab("  Visuals  ")
+local Tab4 = menu:AddTab("  Miscellaneous  ")
+local SettingsTab = library:CreateSettingsTab(menu)
+----- // SECTIONS // -----
+
+-- [Combat Sections UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
+local Combat1 = Tab1:AddSection("Section 1", 1)
+local Combat2 = Tab1:AddSection("Section 2", 2)
+-- [Combat Tab UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
+local ass = Combat1:AddText({text = "Timer"})
+
+
+
+-- [Player Sections UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
+local Player1 = Tab2:AddSection("Section 1", 1)
+local Player2 = Tab2:AddSection("Section 2", 2)
+-- [Player Tab UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- [Visuals Sections UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
+local Visuals1 = Tab3:AddSection("Section 1", 1)
+local Visuals2 = Tab3:AddSection("Section 2", 2)
+
+-- [Visuals Tab UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- [Miscellaneous Sections UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
+local Miscellaneous1 = Tab4:AddSection("Players", 1)
+local Miscellaneous2 = Tab4:AddSection("Fake AFK", 2)
+-- [Miscellaneous Tab UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
+local list = Miscellaneous1:AddList(
+{text = "Selection", selected = "", max = 5,
+values = {unpack(playerlist)},
+    callback = function(a)
+    value = a    
+end})
+
+list:AddValue(game.Players.LocalPlayer)
+
+game.Players.PlayerAdded:Connect(function(player)
+    local name = player.Name
+    table.insert(playerlist,name)
+    list:AddValue(player.Name)
+end)
+
+game.Players.PlayerRemoving:Connect(function(player)
+    local name = player.Name
+    for i,v in pairs(playerlist)do
+    if v == name then  
+    table.remove(playerlist,i)
+    end
+end
+    list:RemoveValue(player.Name)
+end)
+
+Miscellaneous1:AddButton(
+{text = "Teleport",
+    callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[value].Character.HumanoidRootPart.CFrame
+    end})
+    
+local butt = Miscellaneous1:AddButton(
+{text = "View",
+    callback = function()
+    workspace.Camera.CameraSubject = game:GetService("Players")[value].Character.Humanoid    
+    end})
+    
+    butt:AddButton(
+{text = "Unview",
+    callback = function()
+    workspace.Camera.CameraSubject = game.Players.LocalPlayer.Character.Humanoid    
+    end})
+
+Miscellaneous1:AddSeparator({text = "Shit Bullets"})
+
+local asss = Miscellaneous1:AddButton(
+{text = "Start",
+    callback = function()
+getgenv().huu = true
+    while huu == true do
+        local PlayerPOS = game.Players[value].Character.Torso.CFrame
+        local args = {[1] = ".12 Gauge",[2] = PlayerPOS}
+        game:GetService("ReplicatedStorage"):WaitForChild("ACS_Engine"):WaitForChild("Events"):WaitForChild("Shell"):FireServer(unpack(args))
+        wait()
+    end
+end})
+    
+    asss:AddButton(
+{text = "Stop",
+    callback = function()
+getgenv().huu = false
+    while huu == true do
+        local PlayerPOS = game.Players[value].Character.Torso.CFrame
+        local args = {[1] = ".12 Gauge",[2] = PlayerPOS}
+        game:GetService("ReplicatedStorage"):WaitForChild("ACS_Engine"):WaitForChild("Events"):WaitForChild("Shell"):FireServer(unpack(args))
+        wait()
+    end
+end})
+
+Miscellaneous2:AddToggle(
+{text = "Enable", 
+flag = "", callback = function(bool)
+getgenv().afk = bool
+    while afk == true do
+        local args = {[1] = true}
+        game:GetService("ReplicatedStorage"):WaitForChild("AFK"):FireServer(unpack(args))
+        wait()
+    while afk == false do
+        local args = {[1] = false}
+        game:GetService("ReplicatedStorage"):WaitForChild("AFK"):FireServer(unpack(args))
+        wait()
+        end
+    end
+end})
+----- // LOADED // -----
+local Time = (string.format("%."..tostring(Decimals).."f", os.clock() - Clock))
+
+library:SendNotification(("Loaded In "..tostring(Time)), 3)
+
+while wait() do
+ass:SetText("Timer - "..os.date("!%X", os.time() - startTime))
+end
+
