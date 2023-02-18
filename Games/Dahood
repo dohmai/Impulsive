@@ -1,860 +1,115 @@
-LoadedTime = tick()
+-- [Variables] ------------------------------------------------------------------------------------------------------------------------------------------------------------
+local Decimals = 4 
+local Clock = os.clock()
 
-getgenv().Arceus = {
-    Silent = {
-        ["Enabled"] = (false), -- // Use The Silent Aim Or Not
-        
-        ["Part"] = ("Head"), -- // What Part It Targerts
-        ["UseAirPart"] = (false), -- // When Target Isnt On The Ground It Uses This Part
-        ["AirPart"] = ("Head"), -- // The Parts It Targets On When Player Isnt On The Ground
-        ["ClosestPart"] = (false), -- // Automatically Gets The Closest Part Of The Target And Uses That
-        
-        ["HitChance"] = (0), -- // The Chance You Will Hit The Target
-        
-        ["Humanize"] = (false), -- // Makes Soo The Silent Doesnt Hit The Same Position
-        ["HumanizeValue"] = (0), -- // Makes How Much Power It Changes
-        
-        ["TriggerBot"] = (false), -- // Shoots AutoMatically
-        ["UseTriggerBotKeybind"] = (true), -- // Enable / Disable TriggerBot Keybind
-        ["TriggerBotKey"] = ("MouseButton3"), -- // KeyBind To Enable / Disable TriggerBot You Can Find More At https://create.roblox.com/docs/reference/engine/enums/UserInputType
-        
-        ["PredictMovement"] = (false), -- // Predicts Targets Movement
-        ["PredictionVelocity"] = (0.136645), -- // How Much It Predicts
-        
-        ["AntiGroundShots"] = (true), -- // Makes So You Dont Shoot The Ground
-        ["AntiGroundValue"] = (0.5), -- // How Much Velocity It Rmoves From Target
-        ["WhenAntiGroundActivate"] = (-20), -- // When Its Gonna Activate
-        
-        ["AntiAimViewer"] = (true), -- // Bypasses The Mouse Position For The Server 
-        ["AntiAimViewerInterval"] = (5), -- // If You Cant Fire A Gun Make The Value Higher
-        
-        ["WallCheck"] = (false), -- // Checks If Theres A Wall
-        
-        ["CheckIf_KO"] = (false), -- // Checks If Target Is Grabbed Or Knocked
-        ["CheckIf_TargetDeath"] = (true), -- // Checks If Target Is Dead
-        
-        ["UseKeybind"] = (false), -- // Use The KeyBind To Enable / Disable The Silent Aim
-        ["Keybind"] = ("B") -- // The Keybind That Enables / Disables The Silent Aim
-    },
-    SilentAutoPrediction = {
-        ["Enable"] = (false), -- // Automatically Gets Good Prediction Of How Much Ping You Have
-        ["Over"] = (0.1848), -- // Prediction When Your Ping Is Over 160
-        ["160"] = (0.1663), -- // Prediction When Your Ping Is Over 160
-        ["150"] = (0.1574), -- // Prediction When Your Ping Is Over 150
-        ["140"] = (0.1555), -- // Prediction When Your Ping Is Over 140
-        ["130"] = (0.15), -- // Prediction When Your Ping Is Over 130
-        ["120"] = (0.1411), -- // Prediction When Your Ping Is Over 120
-        ["110"] = (0.1344), -- // Prediction When Your Ping Is Over 110
-        ["100"] = (0.1315), -- // Prediction When Your Ping Is Over 100
-        ["90"] = (0.13), -- // Prediction When Your Ping Is Over 90
-        ["80"] = (0.1295), -- // Prediction When Your Ping Is Over 80
-        ["70"] = (0.129), -- // Prediction When Your Ping Is Over 70
-        ["60"] = (0.125), -- // Prediction When Your Ping Is Over 60
-        ["50"] = (0.123), -- // Prediction When Your Ping Is Over 50
-        ["40"] = (0.119), -- // Prediction When Your Ping Is Over 40
-        ["30"] = (0.11), -- // Prediction When Your Ping Is Over 30
-        ["20"] = (0.1), -- // Prediction When Your Ping Is Over 20
-        ["10"] = (0.07) -- // Prediction When Your Ping Is Over 10
-    },
-    GunFOV = {
-        ["Enabled"] = (false), -- // Gun Fov / Fov Is Automatically Changed To Specific Gun Equipped
-    
-        ["Double-Barrel SG"] = {["Fov"] = 12}, -- // Db
-        ["Revolver"] = {["Fov"] = 6}, -- // Rev
-        ["SMG"] = {["Fov"] = 7}, -- // Smg
-        ["Shotgun"] = {["Fov"] = 12}, -- // Shotgun
-        ["Rifle"] = {["Fov"] = 3}, -- // Rifle
-        ["TacticalShotgun"] = {["Fov"] = 12}, -- // Tactical
-        ["Silencer"] = {["Fov"] = 7}, -- // Smg
-        ["AK47"] = {["Fov"] = 4}, -- // Ak47
-        ["AR"] = {["Fov"] = 5} -- // Rifle
-        -- // You Can Add Custom Weapons If You Want To :p
-    },
-    RangeFOV = {
-        ["Enabled"] = (false), -- // Gun Fov / Fov Is Automatically Changed To Specific Distance Between Target / This Will OverWrite GunFov
-        
-        ["Far_Activation"] = (math.huge), -- // Just Keep It At Math.Huge
-        ["Medium_Activation"] = (42), -- // Its Using Studs
-        ["Close_Activation"] = (16), -- // Its Uisng Studs
-        
-        ["Double-Barrel SG"] = {["Far"] = 7, ["Med"] = 9, ["Close"] = 15}, -- // Db
-        ["Revolver"] = {["Far"] = 4, ["Med"] = 6, ["Close"] = 10}, -- // Rev
-        ["SMG"] = {["Far"] = 3, ["Med"] = 5, ["Close"] = 7}, -- // Smg
-        ["Shotgun"] = {["Far"] = 5, ["Med"] = 7, ["Close"] = 10}, -- // Shotgun
-        ["Rifle"] = {["Far"] = 2, ["Med"] = 4, ["Close"] = 6}, -- // Rifle
-        -- // You Can Add Custom Weapons If You Want To :p
-    },
-    SilentFOV = {
-        ["Visible"] = (false), -- // If The Circle Is Showing Or Not
-        ["Filled"] = (false), -- // If The Circle Is Filled
-        ["Transparency"] = (0.5), -- // The Circle Transparency
-        ["Color"] = (Color3.fromRGB(255, 1, 1)), -- // Circle Transparency
-        ["Radius"] = (25) -- // How Big The Circle Is
-    },
+local startTime = os.time()
 
-    AimAssist = {
-        ["Enabled"] = (false), -- // Use The Aim Assist Or Not
-        
-        ["Key"] = ("E"), -- // The Key To Lock Onto A Player
-        ["HoldMode"] = (false), -- // Enables While Only Holding The Key
-        
-        ["Part"] = ("Head"), -- // The Part That Aim Assist Locks On
-        ["ClosestPart"] = (false), -- // Automatically Gets The Closest Part Of The Target And Uses That
-        
-        ["DisableTargetDeath"] = (true), -- // Disables When Target Dies
-        ["DisableLocalDeath"] = (false), -- // Disables When You Died
-        ["DisableOn_KO"] = (false), -- // Disables If Target Is KO Or Grabbed
-        
-        ["UseCircleRadius"] = (true), -- // Only Locks On To People Inside The Circle
-        ["DisableOutSideCircle"] = (false), -- // If Target Is OutSide The Circle It Disables The Aim Assist
-        
-        ["UseShake"] = (false), -- // Shakes The Camera
-        ["ShakeValue"] = (5), -- // How Much It Shakes
-        
-        ["PredictMovement"] = (false), -- // Predicts Targets MoveMent
-        ["PredictionVelocity"] = (0.146), -- // How Much It Predicts
-        
-        ["WallCheck"] = (false), -- // Checks If Theres A Wall
-        
-        ["Smoothness_X"] = (0.5), -- // How Smooth The Aim Assist Is On X
-        ["Smoothness_Y"] = (0.5) -- // How Smooth The Aim Assist Is On Y
-    },
-    AimAssistFOV = {
-        ["Visible"] = (false), -- // If The Circle Is Showing Or Not
-        ["Filled"] = (false), -- // If The Circle Is Filled
-        ["Transparency"] = (0.5), -- // Circle Transparency
-        ["Color"] = (Color3.fromRGB(255, 1, 1)), -- // Circle Transparency
-        ["Radius"] = (30) -- // How Big The Circle Is
-    },
-    Both = {
-        ["DetectDesync"] = (true), -- // Detects Velocity Changer + Actually Hits
-        ["DesyncDetection"] = (86), -- // When It Detects
-        
-        ["UsDetectDesyncKeybind"] = (false), -- // Enable / Disable Desync Detection Keybind
-        ["DetectDesyncKey"] = ("V"), -- // KeyBind To Enable / Disable Desync Detection
-        
-        ["DetectUnderGround"] = (true), -- // Detects Common UnderGround Resolver
-        ["UnderGroundDetection"] = (-30), -- // When It Detects
-        
-        ["UseUnderGroundKeybind"] = (false), -- // Enable / Disable UnderGround Resolver Keybind
-        ["UnderGroundKey"] = ("X"), -- // KeyBind To Enable / Disable UnderGround Resolver
-        
-        ["VisibleCheck"] = (true), -- // Checks If Target Is Visible
-        ["CrewCheck"] = (true), -- // Checks If Target Is In Your Crew
-        ["FriendCheck"] = (false), -- // Checks If Target Is Your Friend
-        ["TeamCheck"] = (false), -- // Checks If Player Is In the Same Team
-        
-        ["UseLay"] = (true), -- // Enable / Disable Lay Keybind
-        ["LayKeybind"] = ("T"), -- // KeyBind To Lay
-        
-        ["SendNotification"] = (true) -- // Sends Notification When you Enabled / Disabled Stuff
-    },
-    
-    Esp = {
-        ["Enabled"] = (false), -- // Enabel / Disable Esp
-        ["UseEspKeybind"] = (false), -- // Enable / Disable Esp Keybind
-        ["EspKey"] = ("Z"), -- // KeyBind To Enable / Disable Esp
-        ["HoldMode"] = (false), -- // Enables While Only Holding The Key
-        
-        ["Name"] = {["Enabled"] = true, ["OutLine"] = true, ["Color"] = Color3.fromRGB(255, 255, 255)}, -- // Shows Targets Name
-        ["Box"] = {["Enabled"] = true, ["OutLine"] = true, ["Color"] = Color3.fromRGB(255, 255, 255)}, -- // Shows Box On Target
-        ["HealthBar"] = {["Enabled"] = true, ["OutLine"] = true, ["Color"] = Color3.fromRGB(0, 255, 0)}, -- // Shows An Health Bar On Target
-        ["HealthText"] = {["Enabled"] = true, ["OutLine"] = true, ["Color"] = Color3.fromRGB(0, 255, 0)}, -- // Shows An Text How Much Hp Target Have
-        ["Distance"] = {["Enabled"] = true, ["OutLine"] = true, ["Color"] = Color3.fromRGB(255, 255, 255)} -- // Shows Targets Distance Between You
-    }
-}
+local playerlist = {}
+for i,v in pairs(game.Players:GetPlayers())do
+    if v ~= game.Players.LocalPlayer then
+    table.insert(playerlist,v.Name)
+    end
+end
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/xwel333/arceus/main/script"))()
------ // LIBARY // -----
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/dohmai/Impulsive/main/Libary/UI"))({cheatname = "Impulsive", gamename = "Da Hood"})
+local plr = game.Players.LocalPlayer
+local old = plr.Character.HumanoidRootPart.CFrame
+-- [Libary] ------------------------------------------------------------------------------------------------------------------------------------------------------------
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/dohmai/Kitty/main/Libraries/UI"))({cheatname = "Mommy", gamename = "Universal"})
 library:init()
------ // WINDOW // -----
-local menu = library.NewWindow({title = "Impulsive | Da Hood", size = UDim2.new(0, 510, 0.6, 6)})
------ // TABS // -----
-local AimingTab = menu:AddTab("  Combat  ")
-local VisualsTab = menu:AddTab("  Visuals  ")
-local PlayerTab = menu:AddTab("  Player  ")
-local TeleportsTab = menu:AddTab("  Miscellaneous  ")
+-- [Window UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
+local menu = library.NewWindow({title = "Mommy | Universal", size = UDim2.new(0, 510, 0.6, 6)})
+-- [Tabs UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
+local Tab1 = menu:AddTab("  Combat  ")
+local Tab2 = menu:AddTab("  Player  ")
+local Tab3 = menu:AddTab("  Visuals  ")
+local Tab4 = menu:AddTab("  Miscellaneous  ")
 local SettingsTab = library:CreateSettingsTab(menu)
 ----- // SECTIONS // -----
-local Aimlock = AimingTab:AddSection("Aimlock", 1)
-local SilentAim = AimingTab:AddSection("Silent Aim", 2)
-local World = VisualsTab:AddSection("World", 1)
-local VTab2 = VisualsTab:AddSection("Tab 2", 2)
-local Movement = PlayerTab:AddSection("Movement", 1)
-local PTab2 = PlayerTab:AddSection("Tab 2", 2)
-local TTab1 = TeleportsTab:AddSection("Tab 1", 1)
-local TTab2 = TeleportsTab:AddSection("Tab 2", 2)
------ // UI // -----
-Aimlock:AddToggle({
-text = "Enable",
-flag = "",
-callback = function(bool)
-    getgenv().Arceus.AimAssist.Enabled = bool
+
+-- [Combat Sections UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
+local Combat1 = Tab1:AddSection("Section 1", 1)
+local Combat2 = Tab1:AddSection("Section 2", 2)
+-- [Combat Tab UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
+local ass = Combat1:AddText({text = "Timer"})
+
+
+
+-- [Player Sections UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
+local Player1 = Tab2:AddSection("Section 1", 1)
+local Player2 = Tab2:AddSection("Section 2", 2)
+-- [Player Tab UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- [Visuals Sections UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
+local Visuals1 = Tab3:AddSection("Section 1", 1)
+local Visuals2 = Tab3:AddSection("Section 2", 2)
+
+-- [Visuals Tab UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- [Miscellaneous Sections UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
+local Miscellaneous1 = Tab4:AddSection("Players", 1)
+local Miscellaneous2 = Tab4:AddSection("Auto Buys", 2)
+-- [Miscellaneous Tab UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
+local list = Miscellaneous1:AddList(
+{text = "Selection", selected = "", max = 5,
+values = {unpack(playerlist)},
+    callback = function(a)
+    value = a    
 end})
 
-Aimlock:AddToggle({
-text = "Closest Part",
-flag = "",
-callback = function(bool)
-    getgenv().Arceus.AimAssist.ClosestPart = bool    
-end})
+game.Players.PlayerAdded:Connect(function(player)
+    local name = player.Name
+    table.insert(playerlist,name)
+    list:AddValue(player.Name)
+end)
 
-Aimlock:AddToggle({
-text = "Disable Outside FOV",
-flag = "",
-callback = function(bool)
-  getgenv().Arceus.AimAssist.DisableOutSideCircle = bool      
-end})
-
-Aimlock:AddToggle({
-text = "Shake",
-flag = "",
-callback = function(bool)
-   getgenv().Arceus.AimAssist.UseShake = bool      
-end})
-
-Aimlock:AddSeparator({
-text = "Settings "
-})
-
-
-Aimlock:AddList({
-values = {"Head", "Upper Torso", "Lower Torso", "HumanoidRootPart"},
-text = "Lock Part",
-flag = "",
-callback = function(bool)
-      getgenv().Arceus.AimAssist.Part = bool      
-end})
-
-Aimlock:AddSlider({
-text = "Shake",
-flag = "",
-suffix = '%',
-value = 5,
-min = 0,
-max = 100,
-increment = 1,
-callback = function(bool)
-       getgenv().Arceus.AimAssist.ShakeValue = bool      
-end})
-
-Aimlock:AddSeparator({
-text = "Prediction "
-})
-
-Aimlock:AddToggle({
-text = "Prediction",
-flag = "",
-callback = function(bool)
-    getgenv().Arceus.AimAssist.PredictMovement = bool 
-end})
-
-Aimlock:AddBox({
-text = "Prediction Ammount",
-input = "0.146",
-flag = "",
-callback = function(bool)
-     getgenv().Arceus.AimAssist.PredictionVelocity = bool 
-end})
-Aimlock:AddSeparator({
-text = "Checks "
-})
-
-Aimlock:AddToggle({
-text = "Wall Check",
-flag = "",
-callback = function(bool)
-     getgenv().Arceus.AimAssist.WallCheck = bool 
-end})
-
-Aimlock:AddToggle({
-text = "Knocked Check",
-flag = "",
-callback = function(bool)
-    getgenv().Arceus.AimAssist.DisableOn_KO = bool  
-end})
-
-
-Aimlock:AddSeparator({
-text = "FOV "
-})
-
-Aimlock:AddToggle({
-text = "Visible",
-flag = "",
-callback = function(bool)
-    getgenv().Arceus.AimAssistFOV.Visible = bool
-end})
-
-:AddColor({
-text = "FOV Color",
-flag = "",
-color = Color3.new(255,1,1),
-callback = function(bool)
-    getgenv().Arceus.AimAssistFOV.Color = bool
-end})
-
-Aimlock:AddToggle({
-text = "Filled",
-flag = "",
-callback = function(bool)
-        getgenv().Arceus.AimAssistFOV.Filled = bool
-end})
-
-Aimlock:AddSlider({
-text = "Transparency",
-flag = "",
-suffix = '%',
-value = 0.5,
-min = 0.1,
-max = 1,
-increment = 0.1,
-callback = function(bool)
-    getgenv().Arceus.AimAssistFOV.Transparency = bool
-end})
-
-Aimlock:AddSlider({
-text = "Radius",
-flag = "",
-suffix = '%',
-value = 75,
-min = 5,
-max = 350,
-increment = 1,
-callback = function(bool)
-    getgenv().Arceus.AimAssistFOV.Radius = bool
-end})
-
-Aimlock:AddSlider({
-text = "Horizontal Smoothness",
-flag = "",
-suffix = '',
-value = 0.5,
-min = 0.01,
-max = 0.5,
-increment = 0.01,
-callback = function(bool)
-    getgenv().Arceus.AimAssist.Smoothness_X = bool  
-end})
-
-Aimlock:AddSlider({
-text = "Vertical Smoothness",
-flag = "",
-suffix = '',
-value = 0.5,
-min = 0.01,
-max = 0.5,
-increment = 0.01,
-callback = function(bool)
-    getgenv().Arceus.AimAssist.Smoothness_Y = bool 
-end})
-
-
----------------------
-
-SilentAim:AddToggle({
-text = "Enable",
-flag = "",
-callback = function(bool)
-    getgenv().Arceus.Silent.Enabled = bool 
-end})
-
-SilentAim:AddToggle({
-text = "Closest Part",
-flag = "",
-callback = function(bool)
-    getgenv().Arceus.Silent.ClosestPart = bool 
-end})
-
-SilentAim:AddToggle({
-text = "Air Part",
-flag = "",
-callback = function(bool)
-    getgenv().Arceus.Silent.AirPart = bool
-end})
-
-SilentAim:AddToggle({
-text = "Humanize",
-flag = "",
-callback = function(bool)
-    getgenv().Arceus.Silent.Humanize = bool
-end})
-
-SilentAim:AddSeparator({
-text = "Settings "
-})
-
-
-SilentAim:AddList({
-values = {"Head", "Upper Torso", "Lower Torso", "HumanoidRootPart"},
-text = "Hit Part",
-flag = "",
-callback = function(bool)
- getgenv().Arceus.Silent.Part = bool   
-end})
-
-SilentAim:AddList({
-values = {"Head", "Upper Torso", "Lower Torso", "HumanoidRootPart"},
-text = "Air Part",
-flag = "",
-callback = function(bool)
- getgenv().Arceus.Silent.AirPart = bool       
-end})
-
-SilentAim:AddSlider({
-text = "Hit Chance ",
-flag = "",
-suffix = '%',
-min = 0,
-max = 100,
-increment = 1,
-callback = function(bool)
- getgenv().Arceus.Silent.HitChance = bool       
-end})
-
-SilentAim:AddSlider({
-text = "Humanize",
-flag = "",
-suffix = '%',
-min = 0,
-max = 100,
-increment = 1,
-callback = function(bool)
- getgenv().Arceus.Silent.HumanizeValue = bool       
-end})
-
-SilentAim:AddSeparator({
-text = "Prediction "
-})
-
-SilentAim:AddToggle({
-text = "Auto Prediction",
-flag = "",
-callback = function(bool)
-    getgenv().Arceus.SilentAutoPrediction.Enable = bool   
-end})
-
-SilentAim:AddToggle({
-text = "Prediction",
-flag = "",
-callback = function(bool)
-   getgenv().Arceus.Silent.PredictMovement = bool  
-end})
-
-SilentAim:AddBox({
-text = "Prediction Ammount",
-input = "0.136645",
-flag = "",
-callback = function(bool)
-    getgenv().Arceus.Silent.PredictionVelocity = bool    
-end})
-
-SilentAim:AddSeparator({
-text = "Checks "
-})
-
-SilentAim:AddToggle({
-text = "Wall Check",
-flag = "",
-callback = function(bool)
-      getgenv().Arceus.Silent.WallCheck = bool    
-end})
-
-SilentAim:AddToggle({
-text = "Knocked Check",
-flag = "",
-callback = function(bool)
-    getgenv().Arceus.Silent.CheckIf_KO = bool        
-end})
-
-SilentAim:AddSeparator({
-text = "FOV "
-})
-
-SilentAim:AddToggle({
-text = "Visible",
-flag = "",
-callback = function(bool)
-    getgenv().Arceus.SilentFOV.Visible = bool  
-end})
-
-:AddColor({
-text = "FOV Color",
-flag = "",
-color = Color3.new(212,7,1),
-callback = function(bool)
-    getgenv().Arceus.SilentFOV.Color = bool  
-end})
-
-SilentAim:AddToggle({
-text = "Filled",
-flag = "",
-callback = function(bool)
-    getgenv().Arceus.SilentFOV.Filled = bool  
-end})
-
-SilentAim:AddSlider({
-text = "Transparency",
-flag = "",
-suffix = '%',
-value = 0.5,
-min = 0.1,
-max = 1,
-increment = 0.1,
-callback = function(bool)
-   getgenv().Arceus.SilentFOV.Transparency = bool   
-end})
-
-SilentAim:AddSlider({
-text = "Radius",
-flag = "",
-suffix = '%',
-value = 75,
-min = 5,
-max = 350,
-increment = 1,
-callback = function(bool)
-    getgenv().Arceus.SilentFOV.Radius = bool  
-end})
-
-getgenv().InteriorAmbience = false
-getgenv().InteriorAmbienceColor = Color3.fromRGB(255, 1, 1)
-getgenv().ExteriorAmbience = false
-getgenv().ExteriorAmbienceColor = Color3.fromRGB(255,1,1)
-getgenv().Fog  = false
-getgenv().FogColor = Color3.fromRGB(255, 1, 1)
-
-World:AddToggle({
-text = "Interior Ambience",
-flag = "",
-callback = function(bool)
-    getgenv().InteriorAmbience = bool
-        while getgenv().InteriorAmbience do
-            wait()
-            game:GetService("Lighting").Ambient = getgenv().InteriorAmbienceColor
-        end
-    if getgenv().InteriorAmbience == false then
-        game:GetService("Lighting").Ambient = Color3.fromRGB(0,0,0)
+game.Players.PlayerRemoving:Connect(function(player)
+    local name = player.Name
+    for i,v in pairs(playerlist)do
+    if v == name then  
+    table.remove(playerlist,i)
     end
+end
+    list:RemoveValue(player.Name)
+end)
+
+Miscellaneous1:AddButton(
+{text = "Teleport",
+    callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[value].Character.HumanoidRootPart.CFrame
+    end})
+    
+local butt = Miscellaneous1:AddButton(
+{text = "View",
+    callback = function()
+    workspace.Camera.CameraSubject = game:GetService("Players")[value].Character.Humanoid    
+    end})
+    
+    butt:AddButton(
+{text = "Unview",
+    callback = function()
+    workspace.Camera.CameraSubject = game.Players.LocalPlayer.Character.Humanoid    
+    end})
+    
+    local list = Miscellaneous2:AddList(
+{text = "Selection", selected = "", max = 5,
+values = {"Revolver", "Double Barrel", "Tactical Shotgun", "Shotgun", "Silencer", "Flamethrower", "RPG", "Grenade Launcher"},
+    callback = function(a)
+    value = a    
 end})
 
-:AddColor({
-text = "Interior Ambience Color",
-flag = "",
-color = Color3.new(212,7,1),
-callback = function(bool)
-    getgenv().InteriorAmbienceColor = bool
-end})
-
-
-World:AddToggle({
-text = "Exterior Ambience",
-flag = "",
-callback = function(bool)
-    getgenv().ExteriorAmbience = bool
-        while getgenv().ExteriorAmbience do
-            wait()
-            game:GetService("Lighting").OutdoorAmbient = getgenv().ExteriorAmbienceColor
-        end
-    if getgenv().ExteriorAmbience == false then
-        game:GetService("Lighting").OutdoorAmbient = Color3.fromRGB(152, 152, 146)
-    end
-end})
-
-:AddColor({
-text = "Exterior Ambience Color",
-flag = "",
-color = Color3.new(212,7,1),
-callback = function(bool)
-    getgenv().ExteriorAmbienceColor = bool
-end})
-
-
-World:AddToggle({
-text = "Fog Ambience",
-flag = "",
-callback = function(bool)
-    getgenv().Fog = bool
-        while getgenv().Fog do
-            wait()
-            game:GetService("Lighting").FogColor = getgenv().FogColor
-        end
-    if getgenv().Fog == false then
-        game:GetService("Lighting").FogColor = Color3.fromRGB(100, 87, 72)
-    end
-end})
-
-:AddColor({
-text = "Atmosphere Color",
-flag = "",
-color = Color3.new(212,7,1),
-callback = function(bool)
-getgenv().FogColor = bool
-end})
-
-
-World:AddSeparator({
-text = "Removals "
-})
-
-
-World:AddToggle({
-text = "Remove Fog ",
-flag = "",
-callback = function(bool)
-    if bool then
-        game:GetService("Lighting").FogEnd = math.huge
-    else
-        game:GetService("Lighting").FogEnd = 500   
-    end
-end})
-
-World:AddToggle({
-text = "Remove Shadows ",
-flag = "",
-callback = function(bool)
-    if bool then
-        game:GetService("Lighting").GlobalShadows = false
-    else
-        game:GetService("Lighting").GlobalShadows = true
-    end
-end})
-
-
-
-World:AddSeparator({
-text = "Color Correction "
-})
-
-World:AddToggle({
-text = "Contrast ",
-flag = "",
-callback = function(bool)
-    getgenv().Contrast = bool
-        while getgenv().Contrast do
-            wait()
-            game:GetService("Lighting").ColorCorrection.Contrast = getgenv().ContrastColor
-        end
-    if getgenv().Contrast == false then
-        game:GetService("Lighting").ColorCorrection.Contrast = 0
-    end
-end})
-
-:AddSlider({
-text = "Contrast ",
-flag = "",
-suffix = '',
-min = 0,
-max = 0.5,
-increment = 0.01,
-callback = function(bool)
-    getgenv().ContrastColor = bool
-end})
-
-World:AddToggle({
-text = "Saturation ",
-flag = "",
-callback = function(bool)
-    getgenv().Saturation = bool
-        while getgenv().Saturation do
-            wait()
-            game:GetService("Lighting").ColorCorrection.Saturation = getgenv().SaturationColor
-        end
-            if getgenv().Saturation == false then
-        game:GetService("Lighting").ColorCorrection.Saturation = 0
-    end    
-end})
-
-:AddSlider({
-text = "Saturation ",
-flag = "",
-suffix = '',
-min = 0,
-max = 0.5,
-increment = 0.01,
-callback = function(bool)
-    getgenv().SaturationColor = bool    
-end})
-
-World:AddToggle({
-text = "Brightness ",
-flag = "",
-callback = function(bool)
-    getgenv().Brightness = bool
-        while getgenv().Brightness do
-            wait()
-            game:GetService("Lighting").ColorCorrection.Brightness = getgenv().BrightnessColor
-        end
-            if getgenv().Brightness == false then
-        game:GetService("Lighting").ColorCorrection.Brightness = 0
-    end
-end})
-
-:AddSlider({
-text = "Brightness ",
-flag = "",
-suffix = '',
-min = 0,
-max = 0.5,
-increment = 0.01,
-callback = function(bool)
-    getgenv().BrightnessColor = bool
-end})
-
-getgenv().CSpeed = false
-getgenv().CSpeedValue = 2.5
-getgenv().Flying = false
-getgenv().FlySpeed = 100
-
-local speed = Movement:AddBind({
-text = "CFrame",
-mode = 'toggle',
-callback = function(bool)
-    getgenv().CSpeed = bool
-end})
-
-
-Movement:AddSlider({
-text = "CFrame Speed ",
-flag = "",
-suffix = '',
-value = 2.5,
-min = 1,
-max = 5,
-increment = 0.1,
-callback = function(bool)
-    getgenv().CSpeedValue = bool
-end})
-
-local fly = Movement:AddBind({
-text = "Flying",
-mode = 'toggle',
-callback = function(bool)
-    getgenv().Flying = bool
-end})
-
-
-Movement:AddSlider({
-text = "Flying Speed ",
-flag = "",
-suffix = '',
-value = 100,
-min = 100,
-max = 1000,
-increment = 10,
-callback = function(bool)
-    getgenv().FlySpeed = bool
-end})
+Miscellaneous2:AddButton(
+{text = "Buy",
+    callback = function()
+        
+    end})
+    
 
 ----- // LOADED // -----
+local Time = (string.format("%."..tostring(Decimals).."f", os.clock() - Clock))
 
-wait(0.2)
-library:SendNotification(library.cheatname.." | Loaded in "..tostring(LoadedTime), 3)
--- // ======== // --
--- // CFRAMESPEED // --
-for _, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-        if v:IsA("Script") and v.Name ~= "Health" and v.Name ~= "Sound" and v:FindFirstChild("LocalScript") then
-            v:Destroy()
-        end
-    end
-    game.Players.LocalPlayer.CharacterAdded:Connect(function(char)
-        repeat
-            wait()
-        until game.Players.LocalPlayer.Character
-        char.ChildAdded:Connect(function(child)
-            if child:IsA("Script") then 
-                wait(0.1)
-                if child:FindFirstChild("LocalScript") then
-                    child.LocalScript:FireServer()
-                end
-            end
-        end)
-    end)
-game:GetService("RunService").Heartbeat:Connect(
-function()
-        if getgenv().CSpeed == true then
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
-                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame +
-                game.Players.LocalPlayer.Character.Humanoid.MoveDirection * CSpeedValue
-        end
-    end)
--- // ======== // --
------ // FLY // -----
-local maxdistance = 100000000000000 --using math.huge makes this script wonky
-local uiservice = game.UserInputService
-local lplr = game.Players.LocalPlayer
-local mouse = lplr:GetMouse()
-local function GetVelocity(pos1,pos2,StudsPerSecond)
-local distance = (pos2 - pos1)
-local mag = distance.Magnitude
-return (distance/mag)*StudsPerSecond
+library:SendNotification(("Loaded In "..tostring(Time)), 3)
+
+while wait() do
+ass:SetText("Timer - "..os.date("!%X", os.time() - startTime))
 end
-local function getkey(keycode)
-local key = tostring(keycode):lower()
-local findcode, a = key:find("keycode.")
-return key:sub(a+1)
-end
-local function getkey(keycode)
-local key = tostring(keycode):lower()
-local findcode, a = key:find("keycode.")
-return key:sub(a+1)
-end
-local keys = {}
-game.RunService.Heartbeat:connect(function()
-pcall(function()
-local hrp = lplr.Character.Humanoid.RootPart
-local frontoffset = CFrame.new() + Vector3.new(0,0,-maxdistance)
-local backoffset = CFrame.new() + Vector3.new(0,0,maxdistance)
-local leftoffset = CFrame.new() + Vector3.new(-maxdistance,0,0)
-local rightoffset = CFrame.new() + Vector3.new(maxdistance,0,0)
-local upoffset = CFrame.new() + Vector3.new(0,maxdistance,0)
-local downoffset = CFrame.new() + Vector3.new(0,-maxdistance,0)
-local velocity = Vector3.new()
-    if Flying then
-    if keys.w_active then
-        velocity = velocity + GetVelocity(hrp.Position,(hrp.CFrame*frontoffset).Position,FlySpeed)
-    end
-    if keys.s_active then
-        velocity = velocity + GetVelocity(hrp.Position,(hrp.CFrame*backoffset).Position,FlySpeed)
-    end
-    if keys.a_active then
-        velocity = velocity + GetVelocity(hrp.Position,(hrp.CFrame*leftoffset).Position,FlySpeed)
-    end
-    if keys.d_active then
-        velocity = velocity + GetVelocity(hrp.Position,(hrp.CFrame*rightoffset).Position,FlySpeed)
-    end
-    if keys.e_active then
-        velocity = velocity + GetVelocity(hrp.Position,(CFrame.new(hrp.Position)*upoffset).Position,FlySpeed)
-    end
-    if keys.q_active then
-        velocity = velocity + GetVelocity(hrp.Position,(CFrame.new(hrp.Position)*downoffset).Position,FlySpeed)
-    end
-    hrp.Velocity = velocity
-     hrp.CFrame = CFrame.new(hrp.Position, (workspace.Camera.CFrame*(CFrame.new()+Vector3.new(0,0,-maxdistance))).Position)
-    end
-    if Flying and not keys.w_active and not keys.a_active and not keys.s_active and not keys.d_active and not keys.q_active and not keys.e_active then
-        hrp.Anchored = true
-    else
-        hrp.Anchored = false
-    end
-end)
-end)
-uiservice.InputBegan:connect(function(key,processed)
-if processed then return end
-    if key.KeyCode == Enum.KeyCode.P and game.UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then
-        Flying = not Flying
-        if Flying then
-            uiservice.MouseBehavior = Enum.MouseBehavior.LockCenter
-            lplr.Character.Humanoid.CameraOffset = Vector3.new(2,0,0)
-        else
-            uiservice.MouseBehavior = Enum.MouseBehavior.Default
-            lplr.Character.Humanoid.CameraOffset = Vector3.new(0,0,0)
-        end
-    end
-    keys[getkey(key.KeyCode).."_active"] = true
-end)
-uiservice.InputEnded:connect(function(key)
-    keys[getkey(key.KeyCode).."_active"] = false
-end)
--- // ======== // --
+
