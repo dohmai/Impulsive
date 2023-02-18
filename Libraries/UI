@@ -4560,18 +4560,12 @@ function library:init()
     end
     
     -- Watermark
-    do
-        if not IonHub_User then
-            getgenv().IonHub_User = {
-                UID = 0, 
-                User = "admin"
-            }
-        end
+
         self.watermark = {
             objects = {};
             text = {
                 {self.cheatname, true},
-                {"ass", true},
+                {"Testing", true},
                 {self.gamename, true},
                 {'0 fps', true},
                 {'0ms', true},
