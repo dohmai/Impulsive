@@ -1,8 +1,19 @@
+local Mommy = { 
+    Player = {
+        Exploits = { 
+            AntiStomp = false,
+            AutoStomp = false,
+            AutoReload = false,
+            AntiFling = false,
+            AntiBag = false,
+            AntiSlow = false,
+            AntiJumpCooldown = false
+        }
+    }
+}
 -- [Variables] ------------------------------------------------------------------------------------------------------------------------------------------------------------
 local Decimals = 4 
 local Clock = os.clock()
-
-local startTime = os.time()
 
 local playerlist = {}
 for i,v in pairs(game.Players:GetPlayers())do
@@ -11,13 +22,12 @@ for i,v in pairs(game.Players:GetPlayers())do
     end
 end
 
-local plr = game.Players.LocalPlayer
-local old = plr.Character.HumanoidRootPart.CFrame
+
 -- [Libary] ------------------------------------------------------------------------------------------------------------------------------------------------------------
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/dohmai/Kitty/main/Libraries/UI"))({cheatname = "Mommy", gamename = "Universal"})
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/dohmai/Mommy-V2/main/Libraries/UI"))({cheatname = "Mommy", gamename = "Da Hood"})
 library:init()
 -- [Window UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
-local menu = library.NewWindow({title = "Mommy | Universal", size = UDim2.new(0, 510, 0.6, 6)})
+local menu = library.NewWindow({title = "Da Hood | Los Angeles County", size = UDim2.new(0, 510, 0.6, 6)})
 -- [Tabs UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
 local Tab1 = menu:AddTab("  Combat  ")
 local Tab2 = menu:AddTab("  Player  ")
@@ -31,13 +41,149 @@ local Combat1 = Tab1:AddSection("Section 1", 1)
 local Combat2 = Tab1:AddSection("Section 2", 2)
 -- [Combat Tab UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
 local ass = Combat1:AddText({text = "Timer"})
-
-
-
 -- [Player Sections UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
-local Player1 = Tab2:AddSection("Section 1", 1)
-local Player2 = Tab2:AddSection("Section 2", 2)
+local Player2 = Tab2:AddSection("Speed", 1)
+local Player1 = Tab2:AddSection("Exploits", 2)
 -- [Player Tab UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Player2:AddToggle(
+{text = "Enable", 
+flag = "", callback = function(bool)
+    Mommy.Player.Exploits.Speed = bool
+
+end})
+
+
+Player2:AddSlider({text = "Speed", flag = "A9",
+min = 0, max = 100, increment = .1,
+callback = function(bool)
+    Mommy.Player.Exploits.SpeedValue = bool
+end})
+
+
+
+Player1:AddToggle(
+{text = "Anti Stomp", 
+flag = "", callback = function(bool)
+    Mommy.Player.Exploits.AntiStomp = bool
+        while Mommy.Player.Exploits.AntiStomp == true do wait()
+        while game.Players.LocalPlayer.Character:WaitForChild("BodyEffects")["K.O"].Value == true or game.Players.LocalPlayer.Character:FindFirstChild("GRABBING_CONSTRAINT") do wait()
+        for i, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+        if v:IsA("BasePart") then
+        v:Destroy()
+        end
+        end
+        end
+        end
+end})
+
+Player1:AddToggle(
+{text = "Auto Stomp", 
+flag = "", callback = function(bool)
+    Mommy.Player.Exploits.AutoStomp = bool
+        if Mommy.Player.Exploits.AutoStomp == true then
+        game:GetService('RunService'):BindToRenderStep("Auto-Stomp", 0 , function()
+        game:GetService("ReplicatedStorage").MainEvent:FireServer("Stomp")
+        end)
+        elseif Mommy.Player.Exploits.AutoStomp == false then
+        game:GetService('RunService'):UnbindFromRenderStep("Auto-Stomp")
+        end 
+end})
+
+Player1:AddToggle(
+{text = "Auto Reload", 
+flag = "", callback = function(bool)
+    Mommy.Player.Exploits.AutoReload = bool
+        while Mommy.Player.Exploits.AutoReload == true and game:GetService("RunService").Heartbeat:Wait() do
+        if game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool") then
+        if game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("Ammo") then
+        if game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("Ammo").Value <= 0 then
+        game:GetService("ReplicatedStorage").MainEvent:FireServer("Reload", game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool")) 
+        wait(1)
+        end
+        end
+        end
+end
+end})
+
+Player1:AddToggle(
+{text = "Anti Fling", 
+flag = "", callback = function(bool)
+    Mommy.Player.Exploits.AntiFling = bool
+        if Mommy.Player.Exploits.AntiFling == true then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+        else
+        game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+        end
+end})
+
+Player1:AddToggle(
+{text = "Anti Bag", 
+flag = "", callback = function(bool)
+    Mommy.Player.Exploits.AntiBag = bool
+        while Mommy.Player.Exploits.AntiBag == true do wait()
+        pcall(function()
+        game.Players.LocalPlayer.Character["Christmas_Sock"]:Destroy()
+        end)
+        end
+end})
+
+Player1:AddToggle(
+{text = "Anti Slowdown", 
+flag = "", callback = function(bool)
+    Mommy.Player.Exploits.AntiSlow = bool
+        if Mommy.Player.Exploits.AntiSlow == true then
+        game:GetService("RunService"):BindToRenderStep("Anti-Slow",0,
+        function()
+        if
+        game.Players.LocalPlayer.Character.BodyEffects.Movement:FindFirstChild("NoWalkSpeed")
+        then
+        game.Players.LocalPlayer.Character.BodyEffects.Movement:FindFirstChild("NoWalkSpeed"):Destroy()
+        end
+        if
+        game.Players.LocalPlayer.Character.BodyEffects.Movement:FindFirstChild("ReduceWalk")
+        then
+        game.Players.LocalPlayer.Character.BodyEffects.Movement:FindFirstChild("ReduceWalk"):Destroy()
+        end
+        if
+        game.Players.LocalPlayer.Character.BodyEffects.Movement:FindFirstChild("NoJumping")
+        then
+        game.Players.LocalPlayer.Character.BodyEffects.Movement:FindFirstChild("NoJumping"):Destroy()
+        end
+        if game.Players.LocalPlayer.Character.BodyEffects.Reload.Value == true then
+        game.Players.LocalPlayer.Character.BodyEffects.Reload.Value = false
+        end
+        end)
+        elseif Mommy.Player.Exploits.AntiSlow == false then
+        game:GetService("RunService"):UnbindFromRenderStep("Anti-Slow")
+        end
+end})
+
+Player1:AddToggle(
+{text = "Anti Jump Cooldown", 
+flag = "", callback = function(bool)
+    Mommy.Player.Exploits.AntiJumpCooldown = bool
+end})
+
+Player1:AddToggle(
+{text = "Fake Lag", 
+flag = "", callback = function(bool)
+    getgenv().FakeLag = bool
+        while FakeLag == true do
+        game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Anchored = true
+        wait(getgenv().FakeLagSpeed)
+        game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Anchored = false
+        wait()
+        end
+end})
+
+Player1:AddSlider({text = "Fake Lag Ammount", flag = "A9",
+min = 0, max = 1, increment = 0.05,
+callback = function(Value)
+        getgenv().FakeLagSpeed = Value
+end})
+-- [AntiJumpCooldown] --
+a = hookfunction(wait, function(b) if b == 1.5 and Mommy.Player.Exploits.AntiJumpCooldown then return a() end return a(b) end)
 
 -- [Visuals Sections UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
 local Visuals1 = Tab3:AddSection("Section 1", 1)
@@ -47,7 +193,7 @@ local Visuals2 = Tab3:AddSection("Section 2", 2)
 
 -- [Miscellaneous Sections UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
 local Miscellaneous1 = Tab4:AddSection("Players", 1)
-local Miscellaneous2 = Tab4:AddSection("Auto Buys", 2)
+local Miscellaneous2 = Tab4:AddSection("Fake AFK", 2)
 -- [Miscellaneous Tab UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
 local list = Miscellaneous1:AddList(
 {text = "Selection", selected = "", max = 5,
@@ -55,6 +201,8 @@ values = {unpack(playerlist)},
     callback = function(a)
     value = a    
 end})
+
+list:AddValue(game.Players.LocalPlayer)
 
 game.Players.PlayerAdded:Connect(function(player)
     local name = player.Name
@@ -89,27 +237,7 @@ local butt = Miscellaneous1:AddButton(
     callback = function()
     workspace.Camera.CameraSubject = game.Players.LocalPlayer.Character.Humanoid    
     end})
-    
-    local list = Miscellaneous2:AddList(
-{text = "Selection", selected = "", max = 5,
-values = {"Revolver", "Double Barrel", "Tactical Shotgun", "Shotgun", "Silencer", "Flamethrower", "RPG", "Grenade Launcher"},
-    callback = function(a)
-    value = a    
-end})
-
-Miscellaneous2:AddButton(
-{text = "Buy",
-    callback = function()
-        
-    end})
-    
-
------ // LOADED // -----
+-- [Loaded Time] ------------------------------------------------------------------------------------------------------------------------------------------------------------
 local Time = (string.format("%."..tostring(Decimals).."f", os.clock() - Clock))
-
 library:SendNotification(("Loaded In "..tostring(Time)), 3)
-
-while wait() do
-ass:SetText("Timer - "..os.date("!%X", os.time() - startTime))
-end
 
