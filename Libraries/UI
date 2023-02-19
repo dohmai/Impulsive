@@ -2479,7 +2479,7 @@ function library:init()
                             self.bind = (keybind and keybind) or keybind or self.bind
                             if self.bind == Enum.KeyCode.Backspace then
                                 self.bind = 'none';
-                                bind.state = true
+
                                 if bind.flag then
                                     library.flags[bind.flag] = bind.state;
                                 end
