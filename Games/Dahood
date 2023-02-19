@@ -1,9 +1,14 @@
 local Mommy = { 
     Player = {
-        Exploits = { 
+        Exploits = {
+            SpeedEnabled = false,
+            Speed = false,
+            SpeedValue = 0,
+            Noclip = false,
             AntiStomp = false,
             AutoStomp = false,
             AutoReload = false,
+            AntiFlingEnabled = false,
             AntiFling = false,
             AntiBag = false,
             AntiSlow = false,
@@ -27,7 +32,7 @@ end
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/dohmai/Mommy-V2/main/Libraries/UI"))({cheatname = "Mommy", gamename = "Da Hood"})
 library:init()
 -- [Window UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
-local menu = library.NewWindow({title = "Da Hood | Los Angeles County", size = UDim2.new(0, 510, 0.6, 6)})
+local menu = library.NewWindow({title = "Mommy | Da Hood", size = UDim2.new(0, 510, 0.6, 6)})
 -- [Tabs UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
 local Tab1 = menu:AddTab("  Combat  ")
 local Tab2 = menu:AddTab("  Player  ")
@@ -42,25 +47,71 @@ local Combat2 = Tab1:AddSection("Section 2", 2)
 -- [Combat Tab UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
 local ass = Combat1:AddText({text = "Timer"})
 -- [Player Sections UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
-local Player2 = Tab2:AddSection("Speed", 1)
+local Player2 = Tab2:AddSection("Movement", 1)
 local Player1 = Tab2:AddSection("Exploits", 2)
 -- [Player Tab UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Player2:AddToggle(
-{text = "Enable", 
+{text = "Noclip", 
 flag = "", callback = function(bool)
-    Mommy.Player.Exploits.Speed = bool
-
+    Mommy.Player.Exploits.Noclip = bool
+        if Mommy.Player.Exploits.Noclip then
+        NoclipLoop = game:GetService("RunService").Stepped:Connect(function()
+        for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+        if v:IsA("BasePart") and v.CanCollide == true then
+        v.CanCollide = false
+        end
+        end
+        end)
+        elseif Mommy.Player.Exploits.Noclip == false and NoclipLoop then
+        NoclipLoop:Disconnect()
+        end
 end})
 
-
-Player2:AddSlider({text = "Speed", flag = "A9",
-min = 0, max = 100, increment = .1,
+Player2:AddToggle(
+{text = "Speed", 
+flag = "", callback = function(bool)
+    Mommy.Player.Exploits.SpeedEnabled = bool 
+        
+end}):AddBind({text = "Speed", state = false, mode = 'toggle', bind = 'None', flag = "A2", 
 callback = function(bool)
-    Mommy.Player.Exploits.SpeedValue = bool
+ Mommy.Player.Exploits.Speed = bool
+ if Mommy.Player.Exploits.SpeedEnabled == true then
+ for _, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+        if v:IsA("Script") and v.Name ~= "Health" and v.Name ~= "Sound" and v:FindFirstChild("LocalScript") then
+        v:Destroy()
+        end
+        end
+        game.Players.LocalPlayer.CharacterAdded:Connect(function(char)
+        repeat
+        wait()
+        until game.Players.LocalPlayer.Character
+        char.ChildAdded:Connect(function(child)
+        if child:IsA("Script") then 
+        wait(0.1)
+        if child:FindFirstChild("LocalScript") then
+        child.LocalScript:FireServer()
+        end
+        end
+        end)
+        end)
+        game:GetService("RunService").Heartbeat:Connect(
+        function()
+            if Mommy.Player.Exploits.SpeedEnabled == true then
+        if Mommy.Player.Exploits.Speed == true then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame +
+        game.Players.LocalPlayer.Character.Humanoid.MoveDirection * Mommy.Player.Exploits.SpeedValue
+        end
+        end
+        end)
+        end
+end})  
+
+Player2:AddSlider({text = "Speed", flag = "A9", suffix = "", min = 0, max = 100, increment = 1, callback = function(bool)
+    
+    Mommy.Player.Exploits.SpeedValue = bool/100  
 end})
-
-
 
 Player1:AddToggle(
 {text = "Anti Stomp", 
@@ -109,13 +160,21 @@ end})
 Player1:AddToggle(
 {text = "Anti Fling", 
 flag = "", callback = function(bool)
-    Mommy.Player.Exploits.AntiFling = bool
+    Mommy.Player.Exploits.AntiFlingEnabled = bool
+
+end}):AddBind({text = "Anti Fling", state = false, mode = 'toggle', bind = 'None', flag = "A2",
+callback = function(bool)
+ Mommy.Player.Exploits.AntiFling = bool
+    if Mommy.Player.Exploits.AntiFlingEnabled == true then
         if Mommy.Player.Exploits.AntiFling == true then
         game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
         else
+            if Mommy.Player.Exploits.AntiFling == false then
         game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-        end
-end})
+            end
+    end
+    end
+    end})
 
 Player1:AddToggle(
 {text = "Anti Bag", 
@@ -180,7 +239,7 @@ end})
 Player1:AddSlider({text = "Fake Lag Ammount", flag = "A9",
 min = 0, max = 1, increment = 0.05,
 callback = function(Value)
-        getgenv().FakeLagSpeed = Value
+        getgenv().FakeLagSpeed = Value/2.5
 end})
 -- [AntiJumpCooldown] --
 a = hookfunction(wait, function(b) if b == 1.5 and Mommy.Player.Exploits.AntiJumpCooldown then return a() end return a(b) end)
@@ -192,10 +251,11 @@ local Visuals2 = Tab3:AddSection("Section 2", 2)
 -- [Visuals Tab UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- [Miscellaneous Sections UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
-local Miscellaneous1 = Tab4:AddSection("Players", 1)
-local Miscellaneous2 = Tab4:AddSection("Fake AFK", 2)
+local Miscellaneous2 = Tab4:AddSection("Players", 2)
+local Miscellaneous1 = Tab4:AddSection("Teleportation", 2)
+
 -- [Miscellaneous Tab UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
-local list = Miscellaneous1:AddList(
+local list = Miscellaneous2:AddList(
 {text = "Selection", selected = "", max = 5,
 values = {unpack(playerlist)},
     callback = function(a)
@@ -220,13 +280,13 @@ end
     list:RemoveValue(player.Name)
 end)
 
-Miscellaneous1:AddButton(
+Miscellaneous2:AddButton(
 {text = "Teleport",
     callback = function()
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[value].Character.HumanoidRootPart.CFrame
     end})
     
-local butt = Miscellaneous1:AddButton(
+local butt = Miscellaneous2:AddButton(
 {text = "View",
     callback = function()
     workspace.Camera.CameraSubject = game:GetService("Players")[value].Character.Humanoid    
@@ -236,6 +296,100 @@ local butt = Miscellaneous1:AddButton(
 {text = "Unview",
     callback = function()
     workspace.Camera.CameraSubject = game.Players.LocalPlayer.Character.Humanoid    
+    end})
+
+Miscellaneous2:AddSeparator({text = "Auto Kill"})
+
+
+local ass = Miscellaneous2:AddButton(
+{text = "Start",
+    callback = function()
+        
+    end})
+
+    ass:AddButton(
+{text = "Stop",
+    callback = function()
+        
+    end})
+    
+Miscellaneous1:AddToggle(
+{text = "Auto Purchase", 
+flag = "", callback = function(bool)
+    
+end})
+
+Miscellaneous1:AddToggle(
+{text = "Return", 
+flag = "", callback = function(bool)
+    
+end})
+
+Miscellaneous1:AddSlider({text = "Return Delay", flag = "A9",
+min = 0, max = 1, increment = 0.05,
+callback = function(Value)
+    
+end})
+
+Miscellaneous1:AddSeparator({text = "Locations"})
+
+
+Miscellaneous1:AddList(
+{text = "Selection", selected = "", max = 5,
+values = {"Bank", "Casino", "School", "Playground", "Church",},
+    callback = function(a)
+        
+end})
+
+Miscellaneous1:AddButton(
+{text = "Teleport",
+    callback = function()
+
+    end})
+
+Miscellaneous1:AddSeparator({text = "Guns"})
+
+Miscellaneous1:AddList(
+{text = "Selection", selected = "", max = 5,
+values = {"Bank", "Casino", "School", "Playground", "Church",},
+    callback = function(a)
+        
+end})
+
+Miscellaneous1:AddButton(
+{text = "Teleport",
+    callback = function()
+
+    end})
+
+Miscellaneous1:AddSeparator({text = "Armor"})
+
+Miscellaneous1:AddList(
+{text = "Selection", selected = "", max = 5,
+values = {"Bank", "Casino", "School", "Playground", "Church",},
+    callback = function(a)
+        
+end})
+
+Miscellaneous1:AddButton(
+{text = "Teleport",
+    callback = function()
+
+    end})
+
+Miscellaneous1:AddSeparator({text = "Food"})
+
+Miscellaneous1:AddList(
+{text = "Selection", selected = "", max = 5,
+values = {"Bank", "Casino", "School", "Playground", "Church",},
+    callback = function(a)
+        
+end})
+
+Miscellaneous1:AddButton(
+{text = "Teleport",
+    callback = function()
+
     end})
 -- [Loaded Time] ------------------------------------------------------------------------------------------------------------------------------------------------------------
 local Time = (string.format("%."..tostring(Decimals).."f", os.clock() - Clock))
