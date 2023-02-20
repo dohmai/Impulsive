@@ -96,7 +96,7 @@ library.themes = {
         }
     },
     {
-        name = 'Tokyo Night',
+        name = 'Midnight',
         theme = {
             ['Accent']                    = fromrgb(103,89,179);
             ['Background']                = fromrgb(22,22,31);
