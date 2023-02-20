@@ -1,1 +1,3 @@
-
+if game.PlaceId == 2788229376 then
+loadstring(game:HttpGet("https://raw.githubusercontent.com/dohmai/Mommy/main/Games/Baseplate"))()
+else game.Players.LocalPlayer:Kick("Tokyo Only Supports Da Hood Right Now") end
