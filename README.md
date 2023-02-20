@@ -1,4 +1,4 @@
-# Kitty
+# Mommy
 ### Loadstring
 ```lua
 loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/dohmai/Kitty/main/Loader"))()
@@ -8,22 +8,15 @@ loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/dohmai/Kitty/mai
 
 ### Features
 ```markdown
-# Universal
-  * Aimbot
-    - Visibility Check
-    - Distance Check
-    - Smoothness
-    - Team Check
-    - Prediction
-    - Body Parts
-    - FOV Circle Customization
 # Dahood
-  * Aimbot
-    - Visibility Check
-    - Distance Check
-    - Smoothness
-    - Team Check
-    - Prediction
-    - Body Parts
-    - FOV Circle Customization
+  * Player
+    * Player
+      - Anti Stomp
+      - Auto Stomp
+      - Auto Reload
+      - Anti Fling
+      - Anti Bag
+      - Anti Slowdown
+      - Anti Jump Cooldown
+      - Fake Lag
 ```
