@@ -10,7 +10,10 @@ loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/dohmai/Kitty/mai
 ```markdown
 # Dahood
   * Player
-    * Player
+    * Movement
+      - Noclip
+      - Speed
+    * Exploits
       - Anti Stomp
       - Auto Stomp
       - Auto Reload
