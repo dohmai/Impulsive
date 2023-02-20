@@ -1,21 +1,3 @@
-local Mommy = { 
-    Player = {
-        Exploits = {
-            SpeedEnabled = false,
-            Speed = false,
-            SpeedValue = 0,
-            Noclip = false,
-            AntiStomp = false,
-            AutoStomp = false,
-            AutoReload = false,
-            AntiFlingEnabled = false,
-            AntiFling = false,
-            AntiBag = false,
-            AntiSlow = false,
-            AntiJumpCooldown = false
-        }
-    }
-}
 -- [Variables] ------------------------------------------------------------------------------------------------------------------------------------------------------------
 local Decimals = 4 
 local Clock = os.clock()
@@ -27,12 +9,35 @@ for i,v in pairs(game.Players:GetPlayers())do
     end
 end
 
+local esp, esp_renderstep, framework = loadstring(game:HttpGet("https://raw.githubusercontent.com/dohmai/Tokyo-Developer/main/Libraries/ESP"))();
+
+local Mommy = { 
+    Player = {
+        Exploits = {
+            Noclip = false,
+            AntiStomp = false,
+            AutoStomp = false,
+            AutoReload = false,
+            AntiFlingEnabled = false,
+            AntiFling = false,
+            AntiBag = false,
+            AntiSlow = false,
+            AntiJumpCooldown = false,
+            FakeLag = false
+        },
+        Movement = {
+            SpeedEnabled = false,
+            Speed = false,
+            SpeedValue = 0
+        }
+    }
+}
 
 -- [Libary] ------------------------------------------------------------------------------------------------------------------------------------------------------------
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/dohmai/Mommy-V2/main/Libraries/UI"))({cheatname = "Mommy", gamename = "Da Hood"})
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/dohmai/Tokyo-Developer/main/Libraries/UI"))({cheatname = "Tokyo", gamename = "Da Hood"})
 library:init()
 -- [Window UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
-local menu = library.NewWindow({title = "Mommy | Da Hood", size = UDim2.new(0, 510, 0.6, 6)})
+local menu = library.NewWindow({title = "Tokyo | Da Hood", size = UDim2.new(0, 510, 0.6, 6)})
 -- [Tabs UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
 local Tab1 = menu:AddTab("  Combat  ")
 local Tab2 = menu:AddTab("  Player  ")
@@ -71,12 +76,12 @@ end})
 Player2:AddToggle(
 {text = "Speed", 
 flag = "", callback = function(bool)
-    Mommy.Player.Exploits.SpeedEnabled = bool 
+    Mommy.Player.Movement.SpeedEnabled = bool 
         
 end}):AddBind({text = "Speed", state = false, mode = 'toggle', bind = 'None', flag = "A2", 
 callback = function(bool)
- Mommy.Player.Exploits.Speed = bool
- if Mommy.Player.Exploits.SpeedEnabled == true then
+ Mommy.Player.Movement.Speed = bool
+ if Mommy.Player.Movement.SpeedEnabled == true then
  for _, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
         if v:IsA("Script") and v.Name ~= "Health" and v.Name ~= "Sound" and v:FindFirstChild("LocalScript") then
         v:Destroy()
@@ -97,11 +102,11 @@ callback = function(bool)
         end)
         game:GetService("RunService").Heartbeat:Connect(
         function()
-            if Mommy.Player.Exploits.SpeedEnabled == true then
-        if Mommy.Player.Exploits.Speed == true then
+            if Mommy.Player.Movement.SpeedEnabled == true then
+        if Mommy.Player.Movement.Speed == true then
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame +
-        game.Players.LocalPlayer.Character.Humanoid.MoveDirection * Mommy.Player.Exploits.SpeedValue
+        game.Players.LocalPlayer.Character.Humanoid.MoveDirection * Mommy.Player.Movement.SpeedValue
         end
         end
         end)
@@ -109,8 +114,7 @@ callback = function(bool)
 end})  
 
 Player2:AddSlider({text = "Speed", flag = "A9", suffix = "", min = 0, max = 100, increment = 1, callback = function(bool)
-    
-    Mommy.Player.Exploits.SpeedValue = bool/100  
+    Mommy.Player.Movement.SpeedValue = bool/100  
 end})
 
 Player1:AddToggle(
@@ -227,8 +231,8 @@ end})
 Player1:AddToggle(
 {text = "Fake Lag", 
 flag = "", callback = function(bool)
-    getgenv().FakeLag = bool
-        while FakeLag == true do
+    Mommy.Player.Exploits.FakeLag = bool
+        while Mommy.Player.Exploits.FakeLag == true do
         game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Anchored = true
         wait(getgenv().FakeLagSpeed)
         game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Anchored = false
@@ -243,15 +247,71 @@ callback = function(Value)
 end})
 -- [AntiJumpCooldown] --
 a = hookfunction(wait, function(b) if b == 1.5 and Mommy.Player.Exploits.AntiJumpCooldown then return a() end return a(b) end)
-
 -- [Visuals Sections UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
-local Visuals1 = Tab3:AddSection("Section 1", 1)
-local Visuals2 = Tab3:AddSection("Section 2", 2)
+local Visuals1 = Tab3:AddSection("Character", 1)
+local Visuals2 = Tab3:AddSection("ESP", 2)
+
+Visuals2:AddToggle(
+{text = "Enable", 
+flag = "", callback = function(bool)
+    getgenv().ESP = bool esp.Settings.Enabled = bool
+    
+end}):AddBind({text = "ESP", state = false, mode = 'toggle', bind = 'None', flag = "A2",
+callback = function(bool)
+    if getgenv().ESP then
+        esp.Settings.Enabled = bool  
+        end
+end})
+
+Visuals2:AddToggle(
+{text = "Boxes", 
+flag = "", callback = function(bool)
+    esp.Settings.Box.Enabled = bool 
+
+end})
+
+
+Visuals2:AddToggle(
+{text = "Healthbar", 
+flag = "", callback = function(bool)
+    esp.Settings.Healthbar.Enabled = bool
+end})
+
+
+Visuals2:AddToggle(
+{text = "Health", 
+flag = "", callback = function(bool)
+    esp.Settings.Health.Enabled = bool
+end})
+
+Visuals2:AddToggle(
+{text = "Names", 
+flag = "", callback = function(bool)
+    esp.Settings.Name.Enabled = bool
+end})
+
+Visuals2:AddToggle(
+{text = "Distance", 
+flag = "", callback = function(bool)
+    esp.Settings.Distance.Enabled = bool
+end})
+
+
+Visuals2:AddToggle(
+{text = "Weapon", 
+flag = "", callback = function(bool)
+    esp.Settings.Tool.Enabled  = bool
+end})
+
+Visuals2:AddSlider({text = "Max Distance", flag = "A9", suffix = "", min = 0, max = 500, value = 500, increment = 10, callback = function(bool)
+    esp.Settings.Maximal_Distance = bool 
+end})
+
 
 -- [Visuals Tab UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- [Miscellaneous Sections UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
-local Miscellaneous2 = Tab4:AddSection("Players", 2)
+local Miscellaneous2 = Tab4:AddSection("Players", 1)
 local Miscellaneous1 = Tab4:AddSection("Teleportation", 2)
 
 -- [Miscellaneous Tab UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -300,23 +360,16 @@ local butt = Miscellaneous2:AddButton(
 
 Miscellaneous2:AddSeparator({text = "Auto Kill"})
 
+Miscellaneous2:AddToggle(
+{text = "Auto Kill", 
+flag = "", callback = function(bool)
 
-local ass = Miscellaneous2:AddButton(
-{text = "Start",
-    callback = function()
-        
-    end})
-
-    ass:AddButton(
-{text = "Stop",
-    callback = function()
-        
-    end})
+end})  
     
 Miscellaneous1:AddToggle(
 {text = "Auto Purchase", 
 flag = "", callback = function(bool)
-    
+    getgenv().autobuy = bool
 end})
 
 Miscellaneous1:AddToggle(
@@ -333,55 +386,119 @@ end})
 
 Miscellaneous1:AddSeparator({text = "Locations"})
 
-
 Miscellaneous1:AddList(
 {text = "Selection", selected = "", max = 5,
-values = {"Bank", "Casino", "School", "Playground", "Church",},
-    callback = function(a)
-        
+values = {"Bank", "Casino", "School", "Playground", "Church"},
+    callback = function(b)
+    valueb = b
 end})
 
 Miscellaneous1:AddButton(
 {text = "Teleport",
     callback = function()
-
-    end})
+        if valueb == "Bank" then 
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-417, 23, -285)
+        else
+        if valueb == "Casino" then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1006, 25, -158)
+        else
+        if valueb == "School" then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-653, 22, 256)
+        else
+        if valueb == "Playground" then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-244, 22, -797)
+        else
+        if valueb == "Church" then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(206, 22, -84)
+        end
+        end
+        end
+        end
+        end
+end})
 
 Miscellaneous1:AddSeparator({text = "Guns"})
 
 Miscellaneous1:AddList(
 {text = "Selection", selected = "", max = 5,
-values = {"Bank", "Casino", "School", "Playground", "Church",},
-    callback = function(a)
-        
+values = {"Revolver", "Double Barrel", "Tactical Shotgun", "Shotgun", "Silencer", "SMG"},
+    callback = function(d)
+    valued = d
+end})
+
+Miscellaneous1:AddButton(
+{text = "Teleport",
+    callback = function()
+        if valued == "Revolver" then 
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-868, -33, -529)
+            else
+        if valued == "Double Barrel" then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-869, -33, -524)
+            else
+        if valued == "Shotgun" then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-861, -33, -529)
+            else
+        if valued == "Tactical Shotgun" then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(471, 48, -620)
+            else
+        if valued == "Silencer" then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-889, -33, -529)
+            else
+        if valued == "SMG" then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-810, -40, -942)
+    end
+    end
+    end
+    end
+    end
+    end
+end})
+
+Miscellaneous1:AddSeparator({text = "Ammo"})
+
+Miscellaneous1:AddList(
+{text = "Selection", selected = "", max = 5,
+values = {"Revolver Ammo", "Double Barrel Ammo", "Tactical Shotgun Ammo", "Shotgun Ammo"},
+    callback = function(d)
+    value = d
 end})
 
 Miscellaneous1:AddButton(
 {text = "Teleport",
     callback = function()
 
-    end})
+end})
 
 Miscellaneous1:AddSeparator({text = "Armor"})
 
 Miscellaneous1:AddList(
 {text = "Selection", selected = "", max = 5,
-values = {"Bank", "Casino", "School", "Playground", "Church",},
-    callback = function(a)
-        
+values = {"High Medium Armor", "Medium Armor", "Fire Armor"},
+    callback = function(c)
+    value = c   
 end})
 
 Miscellaneous1:AddButton(
 {text = "Teleport",
     callback = function()
-
-    end})
+        if value == "High Medium Armor" then 
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(99, 26, -890)
+        else
+        if value == "Medium Armor" then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-605, 10, -789)
+        else
+        if value == "Fire Armor" then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(99, 26, -895)
+        end
+        end
+        end
+end})
 
 Miscellaneous1:AddSeparator({text = "Food"})
 
 Miscellaneous1:AddList(
 {text = "Selection", selected = "", max = 5,
-values = {"Bank", "Casino", "School", "Playground", "Church",},
+values = {"Pizza", "Popcorn", "Taco", "Hamburger", "Hotdog"},
     callback = function(a)
         
 end})
@@ -394,4 +511,18 @@ Miscellaneous1:AddButton(
 -- [Loaded Time] ------------------------------------------------------------------------------------------------------------------------------------------------------------
 local Time = (string.format("%."..tostring(Decimals).."f", os.clock() - Clock))
 library:SendNotification(("Loaded In "..tostring(Time)), 3)
-
+-- [ESP Stuff] ------------------------------------------------------------------------------------------------------------------------------------------------------------
+local players = game.Players;
+for _, player in pairs(players:GetPlayers()) do
+    if player == players.LocalPlayer then continue; end;
+    esp:Player(player);
+end;
+players.PlayerAdded:Connect(function(player)
+    esp:Player(player);
+end);
+players.PlayerAdded:Connect(function(player)
+    local obj = esp:GetObject(player)
+    if obj then
+        obj:Destroy();
+    end;
+end);
