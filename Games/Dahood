@@ -30,8 +30,16 @@ local Mommy = {
             Speed = false,
             SpeedValue = 0
         }
+    },
+     Miscellaneous = {
+        Teleportation = {
+            AutoPurchase = false,
+            Return = false,
+            ReturnDelay = 0
+            
+        }
     }
-}
+}   
 
 -- [Libary] ------------------------------------------------------------------------------------------------------------------------------------------------------------
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/dohmai/Tokyo/main/Libraries/UI"))({cheatname = "Tokyo", gamename = "Da Hood"})
@@ -312,6 +320,7 @@ end})
 
 -- [Miscellaneous Sections UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
 local Miscellaneous2 = Tab4:AddSection("Players", 1)
+local Miscellaneous3 = Tab4:AddSection("Locations", 1)
 local Miscellaneous1 = Tab4:AddSection("Teleportation", 2)
 
 -- [Miscellaneous Tab UI] ------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -369,31 +378,29 @@ end})
 Miscellaneous1:AddToggle(
 {text = "Auto Purchase", 
 flag = "", callback = function(bool)
-    getgenv().autobuy = bool
+    
 end})
 
 Miscellaneous1:AddToggle(
 {text = "Return", 
 flag = "", callback = function(bool)
-    
+    Mommy.Player.Exploits.Return = bool
 end})
 
 Miscellaneous1:AddSlider({text = "Return Delay", flag = "A9",
-min = 0, max = 1, increment = 0.05,
+min = 0, max = 2, increment = 0.1,
 callback = function(Value)
-    
+    Mommy.Player.Exploits.ReturnDelay = Value/0.50 
 end})
 
-Miscellaneous1:AddSeparator({text = "Locations"})
-
-Miscellaneous1:AddList(
+Miscellaneous3:AddList(
 {text = "Selection", selected = "", max = 5,
 values = {"Bank", "Casino", "School", "Playground", "Church"},
     callback = function(b)
     valueb = b
 end})
 
-Miscellaneous1:AddButton(
+Miscellaneous3:AddButton(
 {text = "Teleport",
     callback = function()
         if valueb == "Bank" then 
@@ -419,6 +426,7 @@ end})
 
 Miscellaneous1:AddSeparator({text = "Guns"})
 
+
 Miscellaneous1:AddList(
 {text = "Selection", selected = "", max = 5,
 values = {"Revolver", "Double Barrel", "Tactical Shotgun", "Shotgun", "Silencer", "SMG"},
@@ -430,22 +438,52 @@ Miscellaneous1:AddButton(
 {text = "Teleport",
     callback = function()
         if valued == "Revolver" then 
+        local old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-868, -33, -529)
+        wait(Mommy.Player.Exploits.ReturnDelay)
+        if Mommy.Player.Exploits.Return == true then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old -- teleports you back to your old position
+        end
             else
         if valued == "Double Barrel" then
+        local old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-869, -33, -524)
+        wait(Mommy.Player.Exploits.ReturnDelay)
+        if Mommy.Player.Exploits.Return == true then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old -- teleports you back to your old position
+        end
             else
         if valued == "Shotgun" then
+        local old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-861, -33, -529)
+        wait(Mommy.Player.Exploits.ReturnDelay)
+        if Mommy.Player.Exploits.Return == true then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old -- teleports you back to your old position
+        end
             else
         if valued == "Tactical Shotgun" then
+        local old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(471, 48, -620)
+        wait(Mommy.Player.Exploits.ReturnDelay)
+        if Mommy.Player.Exploits.Return == true then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old -- teleports you back to your old position
+        end
             else
         if valued == "Silencer" then
+        local old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-889, -33, -529)
+        wait(Mommy.Player.Exploits.ReturnDelay)
+        if Mommy.Player.Exploits.Return == true then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old -- teleports you back to your old position
+        end
             else
         if valued == "SMG" then
+        local old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-810, -40, -942)
+        wait(Mommy.Player.Exploits.ReturnDelay)
+        if Mommy.Player.Exploits.Return == true then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old -- teleports you back to your old position
+        end
     end
     end
     end
@@ -458,16 +496,144 @@ Miscellaneous1:AddSeparator({text = "Ammo"})
 
 Miscellaneous1:AddList(
 {text = "Selection", selected = "", max = 5,
-values = {"Revolver Ammo", "Double Barrel Ammo", "Tactical Shotgun Ammo", "Shotgun Ammo"},
+values = {"Revolver Ammo", "Double Barrel Ammo", "Tactical Shotgun Ammo", "Shotgun Ammo", "Silencer Ammo", "SMG Ammo"},
     callback = function(d)
-    value = d
+    valuedd = d
 end})
 
 Miscellaneous1:AddButton(
 {text = "Teleport",
     callback = function()
-
+        if valuedd == "Revolver Ammo" then
+        local old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-877, -33, -529)
+        wait(Mommy.Player.Exploits.ReturnDelay)
+        if Mommy.Player.Exploits.Return == true then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old -- teleports you back to your old position
+        end
+            else
+        if valuedd == "Double Barrel Ammo" then
+        local old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-875, -33, -524)
+        wait(Mommy.Player.Exploits.ReturnDelay)
+        if Mommy.Player.Exploits.Return == true then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old -- teleports you back to your old position
+        end
+            else
+        if valuedd == "Shotgun Ammo" then
+        local old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-883, -33, -529)
+        wait(Mommy.Player.Exploits.ReturnDelay)
+        if Mommy.Player.Exploits.Return == true then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old -- teleports you back to your old position
+        end
+            else
+        if valuedd == "Tactical Shotgun Ammo" then
+        local old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(493, 48, -620)
+        wait(Mommy.Player.Exploits.ReturnDelay)
+        if Mommy.Player.Exploits.Return == true then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old -- teleports you back to your old position
+        end
+            else
+        if valuedd == "Silencer Ammo" then
+        local old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-891, -33, -533)
+        wait(Mommy.Player.Exploits.ReturnDelay)
+        if Mommy.Player.Exploits.Return == true then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old -- teleports you back to your old position
+        end
+            else
+        if valuedd == "SMG Ammo" then
+        local old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-815, -40, -942)
+        wait(Mommy.Player.Exploits.ReturnDelay)
+        if Mommy.Player.Exploits.Return == true then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old -- teleports you back to your old position
+        end    
+    end
+    end
+    end
+    end
+    end
+    end
 end})
+
+Miscellaneous1:AddSeparator({text = "Food"})
+
+Miscellaneous1:AddList(
+{text = "Selection", selected = "", max = 5,
+values = {"Chicken", "Hamburger", "Hotdog", "Lettuce", "Pizza", "Popcorn", "Taco"},
+    callback = function(p)
+    valuedda = p
+end})
+
+Miscellaneous1:AddButton(
+{text = "Teleport",
+    callback = function()
+        if valuedda == "Chicken" then
+        local old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-795, -40, -938)
+        wait(Mommy.Player.Exploits.ReturnDelay)
+        if Mommy.Player.Exploits.Return == true then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old -- teleports you back to your old position
+        end
+            else
+        if valuedda == "Hamburger" then
+        local old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-275, 23, -807)
+        wait(Mommy.Player.Exploits.ReturnDelay)
+        if Mommy.Player.Exploits.Return == true then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old -- teleports you back to your old position
+        end
+            else
+        if valuedda == "Hotdog" then
+        local old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-16, 29, -914)
+        wait(Mommy.Player.Exploits.ReturnDelay)
+        if Mommy.Player.Exploits.Return == true then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old -- teleports you back to your old position
+        end
+            else
+        if valuedda == "Lettuce" then
+        local old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-84, 25, -633)
+        wait(Mommy.Player.Exploits.ReturnDelay)
+        if Mommy.Player.Exploits.Return == true then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old -- teleports you back to your old position
+        end
+            else
+        if valuedda == "Pizza" then
+        local old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-789, -40, -943)
+        wait(Mommy.Player.Exploits.ReturnDelay)
+        if Mommy.Player.Exploits.Return == true then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old -- teleports you back to your old position
+        end
+            else
+        if valuedda == "Popcorn" then
+        local old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-995, 25, -153)
+        wait(Mommy.Player.Exploits.ReturnDelay)
+        if Mommy.Player.Exploits.Return == true then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old -- teleports you back to your old position
+        end
+            else
+        if valuedda == "Taco" then
+        local old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(584, 51, -474)
+        wait(Mommy.Player.Exploits.ReturnDelay)
+        if Mommy.Player.Exploits.Return == true then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old -- teleports you back to your old position
+        end
+        end
+        end
+        end
+        end
+        end
+        end
+        end
+    end})
 
 Miscellaneous1:AddSeparator({text = "Armor"})
 
@@ -475,39 +641,39 @@ Miscellaneous1:AddList(
 {text = "Selection", selected = "", max = 5,
 values = {"High Medium Armor", "Medium Armor", "Fire Armor"},
     callback = function(c)
-    value = c   
+    valuecc = c   
 end})
 
 Miscellaneous1:AddButton(
 {text = "Teleport",
     callback = function()
-        if value == "High Medium Armor" then 
+        if valuecc == "High Medium Armor" then
+        local old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(99, 26, -890)
+        wait(Mommy.Player.Exploits.ReturnDelay)
+        if Mommy.Player.Exploits.Return == true then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old -- teleports you back to your old position
+        end
         else
-        if value == "Medium Armor" then
+        if valuecc == "Medium Armor" then
+        local old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-605, 10, -789)
+        wait(Mommy.Player.Exploits.ReturnDelay)
+        if Mommy.Player.Exploits.Return == true then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old -- teleports you back to your old position
+        end
         else
-        if value == "Fire Armor" then
+        if valuecc == "Fire Armor" then
+        local old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(99, 26, -895)
+        wait(Mommy.Player.Exploits.ReturnDelay)
+        if Mommy.Player.Exploits.Return == true then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old -- teleports you back to your old position
+        end
         end
         end
         end
 end})
-
-Miscellaneous1:AddSeparator({text = "Food"})
-
-Miscellaneous1:AddList(
-{text = "Selection", selected = "", max = 5,
-values = {"Pizza", "Popcorn", "Taco", "Hamburger", "Hotdog"},
-    callback = function(a)
-        
-end})
-
-Miscellaneous1:AddButton(
-{text = "Teleport",
-    callback = function()
-
-    end})
 -- [Loaded Time] ------------------------------------------------------------------------------------------------------------------------------------------------------------
 local Time = (string.format("%."..tostring(Decimals).."f", os.clock() - Clock))
 library:SendNotification(("Loaded In "..tostring(Time)), 3)
