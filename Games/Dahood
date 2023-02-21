@@ -378,7 +378,7 @@ end})
 Miscellaneous1:AddToggle(
 {text = "Auto Purchase", 
 flag = "", callback = function(bool)
-    
+    Mommy.Player.Exploits.AutoPurchase = bool  
 end})
 
 Miscellaneous1:AddToggle(
@@ -390,12 +390,12 @@ end})
 Miscellaneous1:AddSlider({text = "Return Delay", flag = "A9",
 min = 0, max = 2, increment = 0.1,
 callback = function(Value)
-    Mommy.Player.Exploits.ReturnDelay = Value/0.50 
+    Mommy.Player.Exploits.ReturnDelay = Value
 end})
 
 Miscellaneous3:AddList(
 {text = "Selection", selected = "", max = 5,
-values = {"Bank", "Casino", "School", "Playground", "Church"},
+values = {"Bank", "Casino", "School", "Playground", "Admin Base"},
     callback = function(b)
     valueb = b
 end})
@@ -415,8 +415,8 @@ Miscellaneous3:AddButton(
         if valueb == "Playground" then
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-244, 22, -797)
         else
-        if valueb == "Church" then
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(206, 22, -84)
+        if valueb == "Admin Base" then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-798, -40, -886)
         end
         end
         end
@@ -575,57 +575,85 @@ Miscellaneous1:AddButton(
         local old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-795, -40, -938)
         wait(Mommy.Player.Exploits.ReturnDelay)
-        if Mommy.Player.Exploits.Return == true then
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old -- teleports you back to your old position
-        end
-            else
+            if Mommy.Player.Exploits.Return == true then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old 
+                else wait(0.2)
+                if Mommy.Player.Exploits.AutoPurchase == true then
+                fireclickdetector(game.Workspace.Ignored.Shop["[Chicken] - $7"].ClickDetector)
+                end
+            end
+        else
         if valuedda == "Hamburger" then
         local old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-275, 23, -807)
         wait(Mommy.Player.Exploits.ReturnDelay)
-        if Mommy.Player.Exploits.Return == true then
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old -- teleports you back to your old position
-        end
-            else
+            if Mommy.Player.Exploits.Return == true then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old 
+                else wait(0.2)
+                if Mommy.Player.Exploits.AutoPurchase == true then
+                fireclickdetector(game.Workspace.Ignored.Shop["[Hamburger] - $5"].ClickDetector)
+                end            
+            end
+        else
         if valuedda == "Hotdog" then
         local old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-16, 29, -914)
         wait(Mommy.Player.Exploits.ReturnDelay)
-        if Mommy.Player.Exploits.Return == true then
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old -- teleports you back to your old position
-        end
-            else
+            if Mommy.Player.Exploits.Return == true then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old 
+                else wait(0.2)
+                if Mommy.Player.Exploits.AutoPurchase == true then
+                fireclickdetector(game.Workspace.Ignored.Shop["[HotDog] - $8"].ClickDetector)
+                end            
+            end
+        else
         if valuedda == "Lettuce" then
         local old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-84, 25, -633)
         wait(Mommy.Player.Exploits.ReturnDelay)
-        if Mommy.Player.Exploits.Return == true then
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old -- teleports you back to your old position
-        end
-            else
+            if Mommy.Player.Exploits.Return == true then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old 
+                else wait(0.2)
+                if Mommy.Player.Exploits.AutoPurchase == true then
+                fireclickdetector(game.Workspace.Ignored.Shop["[Lettuce] - $5"].ClickDetector)
+                end            
+            end
+        else
         if valuedda == "Pizza" then
         local old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-789, -40, -943)
         wait(Mommy.Player.Exploits.ReturnDelay)
-        if Mommy.Player.Exploits.Return == true then
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old -- teleports you back to your old position
-        end
-            else
+            if Mommy.Player.Exploits.Return == true then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old
+                else wait(0.2)
+                if Mommy.Player.Exploits.AutoPurchase == true then
+                fireclickdetector(game.Workspace.Ignored.Shop["[Pizza] - $5"].ClickDetector)
+                end            
+            end
+        else
         if valuedda == "Popcorn" then
         local old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-995, 25, -153)
         wait(Mommy.Player.Exploits.ReturnDelay)
-        if Mommy.Player.Exploits.Return == true then
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old -- teleports you back to your old position
-        end
-            else
+            if Mommy.Player.Exploits.Return == true then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old
+                else wait(0.2)
+                if Mommy.Player.Exploits.AutoPurchase == true then
+                fireclickdetector(game.Workspace.Ignored.Shop["[Popcorn] - $7"].ClickDetector)
+                end            
+            end
+        else
         if valuedda == "Taco" then
         local old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(584, 51, -474)
         wait(Mommy.Player.Exploits.ReturnDelay)
-        if Mommy.Player.Exploits.Return == true then
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old -- teleports you back to your old position
-        end
+            if Mommy.Player.Exploits.Return == true then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old 
+                else wait(0.2)
+                if Mommy.Player.Exploits.AutoPurchase == true then
+                fireclickdetector(game.Workspace.Ignored.Shop["[Taco] - $2"].ClickDetector)
+                end
+            end
         end
         end
         end
@@ -650,26 +678,38 @@ Miscellaneous1:AddButton(
         if valuecc == "High Medium Armor" then
         local old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(99, 26, -890)
-        wait(Mommy.Player.Exploits.ReturnDelay)
-        if Mommy.Player.Exploits.Return == true then
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old -- teleports you back to your old position
-        end
+            wait(Mommy.Player.Exploits.ReturnDelay)
+            if Mommy.Player.Exploits.Return == true then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old
+            else wait(0.2)
+                if Mommy.Player.Exploits.AutoPurchase == true then
+                fireclickdetector(game.Workspace.Ignored.Shop["[High-Medium Armor] - $2163"].ClickDetector)
+                end
+            end
         else
         if valuecc == "Medium Armor" then
         local old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-605, 10, -789)
-        wait(Mommy.Player.Exploits.ReturnDelay)
-        if Mommy.Player.Exploits.Return == true then
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old -- teleports you back to your old position
-        end
+            wait(Mommy.Player.Exploits.ReturnDelay)
+            if Mommy.Player.Exploits.Return == true then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old 
+            else wait(0.2)
+                if Mommy.Player.Exploits.AutoPurchase == true then
+                fireclickdetector(game.Workspace.Ignored.Shop["[Medium Armor] - $1030"].ClickDetector)
+                end
+            end
         else
         if valuecc == "Fire Armor" then
         local old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(99, 26, -895)
-        wait(Mommy.Player.Exploits.ReturnDelay)
-        if Mommy.Player.Exploits.Return == true then
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old -- teleports you back to your old position
-        end
+            wait(Mommy.Player.Exploits.ReturnDelay)
+            if Mommy.Player.Exploits.Return == true then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old
+            else wait(0.2)
+                if Mommy.Player.Exploits.AutoPurchase == true then
+                fireclickdetector(game.Workspace.Ignored.Shop["[Fire Armor] - $2060"].ClickDetector)
+                end
+            end
         end
         end
         end
